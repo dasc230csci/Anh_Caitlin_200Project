@@ -8,19 +8,19 @@
  */
 public class LocationDescription {
 	
-	private String planetName, wormHoleKey, gravityBomb, peaceOffering;
+	private String planetName, wormHoleKey, gravityBomb, peaceOffering, lightSaber;
 	private String alien;
-	private String resources, asteroidChance;
+	private String resources, asteroidShower;
 	
-	public LocationDescription(String planetName, String wormHoleKey, String gravityBomb,
-			String peaceOffering, String alien, String resources) {
+	public LocationDescription(String planetName, String alien, String resources,String gravityBomb, String wormHoleKey,String asteroidShower, String peaceOffering, String lightSaber) {
 		this.planetName = planetName;
 		this.wormHoleKey = wormHoleKey;
 		this.gravityBomb = gravityBomb;
-		this.lightSaber = lightSaber;
 		this.peaceOffering = peaceOffering;
 		this.alien = alien;
 		this.resources = resources;
+		this.asteroidShower = asteroidShower;
+		this.lightSaber = lightSaber;
 	}
 
 	public String getPlanetName() {
@@ -45,14 +45,6 @@ public class LocationDescription {
 
 	public void setGravityBomb(String gravityBomb) {
 		this.gravityBomb = gravityBomb;
-	}
-
-	public String getLightSaber() {
-		return lightSaber;
-	}
-
-	public void setLightSaber(String lightSaber) {
-		this.lightSaber = lightSaber;
 	}
 
 	public String getPeaceOffering() {
@@ -80,14 +72,18 @@ public class LocationDescription {
 	}
 	
 	public String toString(){
-		return this.planetName+"\n"+this.alien.toString()+"\n"+this.getResources()+"\n"+this.getGravityBomb()+"\n"+this.getWormHoleKey()+"\n"+this.getAsteroidChance()+"\n"+this.getPeaceOffering();
+		return "_" + this.planetName+"\n"+this.alien.toString()+"\n"+this.getResources()+"\n"+this.getGravityBomb()+"\n"+this.getWormHoleKey()+"\n"+this.getAsteroidShower()+"\n"+this.getPeaceOffering()+"\n"+this.getLightSaber()+"\n";
 	}
 
-	public String getAsteroidChance() {
-		return asteroidChance;
+	public String getAsteroidShower() {
+		return asteroidShower;
 	}
 
-	public void setAsteroidChance(String asteroidChance) {
-		this.asteroidChance = asteroidChance;
+	public void setAsteroidShower(String asteroidChance) {
+		this.asteroidShower = asteroidChance;
+	}
+	
+	public String getLightSaber() {
+		return this.lightSaber;
 	}
 }

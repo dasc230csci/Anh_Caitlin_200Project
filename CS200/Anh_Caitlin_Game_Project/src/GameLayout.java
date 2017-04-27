@@ -17,6 +17,7 @@ import java.util.Set;
 public class GameLayout {
 	private Map<String, Set<String>> connection;
 	private Map<String, LocationDescription> descriptions;
+	private PlanetsDescription planets;
 	public GameLayout(){
 		this.connection = new HashMap<String, Set<String>>();
 		this.descriptions = new HashMap<String, LocationDescription>();
@@ -24,6 +25,8 @@ public class GameLayout {
 	public GameLayout(String fileName1, String fileName2){
 		this.connection = new HashMap<String, Set<String>>();
 		this.descriptions = new HashMap<String, LocationDescription>();
+		this.planets= new PlanetsDescription();
+		planets.begin();
 	    try{
 	      File newFile1 = new File(fileName1);
 	      Scanner scanner1 = new Scanner(newFile1);
@@ -46,18 +49,8 @@ public class GameLayout {
 	      File newFile2 = new File(fileName2);
 	      Scanner scanner3 = new Scanner(newFile2);
 	      while (scanner3.hasNextLine()){
-	    	  String nextToken = scanner3.nextLine();
-	    	  if(nextToken.equals("_")&&scanner2.hasNextLine()){
-	    		  String planetName = scanner3.nextLine();
-	    		  String alien = scanner3.nextLine();
-	    		  String resources = scanner3.nextLine();
-	    		  String gravityBomb = scanner3.nextLine();
-	    		  String wormholeKey = scanner3.nextLine();
-	    		  String asteroidShower = scanner3.nextLine();
-	    		  String peaceOffering = scanner3.nextLine();
-	    		  LocationDescription planetDescription = new LocationDescription(planetName, wormholeKey, gravityBomb, )
-	    		  this.descriptions.put(planetName, planetDescription);
-	    	  }
+	    	  String planetName = scanner3.nextLine();
+	    	  descriptions.put(planetName, planets.getPlanet(planetName));
 	      }
 	}
 	    catch(FileNotFoundException e){
