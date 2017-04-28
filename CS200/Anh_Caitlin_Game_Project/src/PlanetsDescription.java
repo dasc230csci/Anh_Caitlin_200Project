@@ -11,19 +11,7 @@ public class PlanetsDescription {
 	
 	public PlanetsDescription(){
 		planets = new LocationDescription[13];
-		planets[1]=this.earth;
-		planets[2]= this.pluto;
-		planets[3]= this.cybertron;
-		planets[4]= this.dagobah;
-		planets[5]=this.eternia;
-		planets[6]=this.blackHole;
-		planets[7]=this.forgottenRealm;
-		planets[8]=this.gallifrey;
-		planets[9]=this.hyrule;
-		planets[10]=this.iathilles;
-		planets[11]=this.krypton;
-		planets[12]=this.middleEarth;
-		planets[13]=this.wormhole;
+		random = new Random();
 		
 	}
 	
@@ -31,22 +19,22 @@ public class PlanetsDescription {
 		int resources = random.nextInt(250);
 		String amount = resources+"";
 		earth = new LocationDescription("Earth(A)","No Alien", amount, "No Gravity Bomb", "No Wormhole Key", "No Asteroid Shower", "No Peace Offering","No Light Saber");
-
+		planets[0]=this.earth;
 	}
 	
 	public void createBlackHole(){
 		blackHole = new LocationDescription("BlackHole(K)", "No Alien", "No Resources", "No Gravity Bomb", "No Wormhole Key", "No Asteroid Shower", "No Peace Offering", "No Light Saber");
-
+		planets[5]=this.blackHole;
 	}
 	
 	public void createIathilles(){
 		iathilles = new LocationDescription("Iathilles(I)", "No Alien", "No Resources", "No Gravity Bomb", "No Wormhole Key", "No Asteroid Shower", "No Peace Offering", "No Light Saber");
-
+		planets[9]=this.iathilles;
 	}
 	
 	public void createKrypton(){
 		krypton = new LocationDescription("Krypton(K)", "No Alien", "No Resources", "No Gravity Bomb", "No Wormhole Key", "No Asteroid Shower", "No Peace Offering", "No Light Saber");
-
+		planets[10]=this.krypton;
 	}
 	
 	public void createMiddleEarth(){
@@ -111,12 +99,13 @@ public class PlanetsDescription {
 				middleEarth = new LocationDescription("Middle Earth(M)", type, resources+"", "No Gravity Bomb", "Wormhole Key", asteroid, "No Peace Offering", give);
 			}
 		}
-
+		planets[11]=this.middleEarth;
 	}
 	
 	public void createGallifrey(){
 		int resources = random.nextInt(250);
 		gallifrey = new LocationDescription("Gallifrey(G)","No Alien", resources+"", "No Gravity Bomb", "No Wormhole Key", "Asteroid Shower", "Peace Offering","No Light Saber");
+		planets[7]=this.gallifrey;
 	}
 	
 	public void createHyrule(){
@@ -130,7 +119,7 @@ public class PlanetsDescription {
 			asteroid = "No Asteroid";
 		}
 		hyrule = new LocationDescription("Hyrule(H)","No Alien", resources+"", "Gravity Bomb", "No Wormhole Key", asteroid, "Peace Offering","No Light Saber");
-
+		planets[8]=this.hyrule;
 	}
 	
 	public void createPluto(){
@@ -152,33 +141,37 @@ public class PlanetsDescription {
 			asteroid = "No Asteroid";
 		}
 		pluto = new LocationDescription("Pluto(B)","No Alien", resources+"", gBomb, "No Wormhole Key", asteroid, "No Peace Offering","No Light Saber");
-
+		planets[1]= this.pluto;
 	}
 	
 	public void createWormHole(){
 		wormhole = new LocationDescription("Wormhole(L)", "No Alien", "No Resources", "No Gravity Bomb", "No Wormhole Key", "No Asteroid Shower", "No Peace Offering", "No Light Saber");
-
+		planets[12]=this.wormhole;
 	}
 	
 	public void createDagobah(){
 		int resources = random.nextInt(250);
 		dagobah = new LocationDescription("Dagobah(D)", "No Alien", resources+"", "Gravity Bomb", "No Wormhole Key", "Asteroid Shower", "No Peace Offering", "No Light Saber");
+		planets[3]= this.dagobah;
 	}
 	
 	public void createCybertron(){
+		int resources = random.nextInt(250);
+		int alienType = random.nextInt(100);
+		int asteroidChance = random.nextInt(100);
 		String type ="";
 		String give="";
 		String asteroid="";
-		int bomb = random.nextInt(100);
 		String gBomb = "";
+		int bomb = random.nextInt(100);
 		if(bomb<=50){
 			gBomb = "Gravity Bomb";
 		}
 		else{
 			gBomb = "No Gravity Bomb";
 		}
-		int resources = random.nextInt(250);
-		int alienType = random.nextInt(100);
+		
+		
 		if(alienType<=50){
 			type = "Good Alien";
 			int giveWhat = random.nextInt(100);
@@ -206,7 +199,7 @@ public class PlanetsDescription {
 		else{
 			type = "Bad Alien";
 		}
-		int asteroidChance = random.nextInt(100);
+		
 		if(asteroidChance<=25){
 			asteroid = "Asteroid";
 		}
@@ -235,6 +228,7 @@ public class PlanetsDescription {
 				cybertron = new LocationDescription("Cybertron(C)", type, resources+"", gBomb, "Wormhole Key", asteroid, "No Peace Offering", give);
 			}
 		}
+		planets[2]= this.cybertron;
 	}
 	
 	public void createEternia(){
@@ -307,6 +301,7 @@ public class PlanetsDescription {
 				eternia = new LocationDescription("Eternia(E)", type, resources+"", gBomb, "Wormhole Key", asteroid, "No Peace Offering", give);
 			}
 		}
+		planets[4]=this.eternia;
 	}
 
 	public void createForgottenRealm(){
@@ -379,6 +374,7 @@ public class PlanetsDescription {
 				forgottenRealm = new LocationDescription("Forgotten Realm(F)", type, resources+"", gBomb, "Wormhole Key", asteroid, "No Peace Offering", give);
 			}
 		}
+		planets[6]=this.forgottenRealm;
 	}
 	public LocationDescription getPlanet(String planetName){
 		for(LocationDescription planet:planets){
@@ -394,6 +390,7 @@ public class PlanetsDescription {
 		File file = new File(fileName);
 		writer = new PrintWriter(file);
 		for(LocationDescription planet:planets){
+			System.out.println(planet.toString()+1);
 			writer.write(planet.toString());
 		}
 		writer.close();

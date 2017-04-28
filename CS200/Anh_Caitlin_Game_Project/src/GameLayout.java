@@ -1,7 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -42,7 +44,11 @@ public class GameLayout {
 	        String nextToken2 = scanner2.nextLine();
 	        if(nextToken2.equals("_")&&scanner2.hasNextLine()){
 	        	String planetName = scanner2.nextLine();
-	          this.connection.get(planetName).add(scanner2.nextLine());
+	          int number = Integer.parseInt(scanner2.nextLine());
+	          for(int i=0; i<number; i++){
+	        	  String connectPlanet = scanner2.nextLine();
+	        	  connection.get(planetName).add(connectPlanet);
+	          }
 	        } 
 	      }
 	      scanner1.close();
@@ -60,6 +66,8 @@ public class GameLayout {
 	    		  String asteroid = scanner3.nextLine();
 	    		  String offering = scanner3.nextLine();
 	    		  String yodaGive = scanner3.nextLine();
+	    		  LocationDescription planet = new LocationDescription(name, alien, resources, gBomb, key, asteroid, offering, yodaGive);
+	    		  descriptions.put(name, planet);
 	    	  }
 	      }
 	      scanner3.close();
@@ -69,5 +77,36 @@ public class GameLayout {
 	      }     
 	}
 	
+	public Iterator<String> locations(){
+		return descriptions.keySet().iterator();
+	}
+	
+	public Iterator<String> connections(String planet){
+		return connection.get(planet).iterator();
+	}
+	
+	public LocationDescription getDescription(String planet){
+		return descriptions.get(planet);
+	}
+	
+	public void update(String name, String alien, String resources, String gBomb, String key, String asteroid, String offering, String yodaGive){
+		descriptions.get(name).setDescription(alien, resources, gBomb, key, asteroid, offering, yodaGive);
+	}
+	
+	public void saveGame(String fileName){
+		try{
+		      File newFile = new File(fileName);
+		      PrintWriter writer = new PrintWriter(newFile);
+		      Iterator<String> planets = this.locations();
+		      while(planets.hasNext()){
+		        String planetName = planets.next();
+		        writer.write(descriptions.get(planetName).toString());
+		      }
+		      writer.close();
+		    }
+		    catch(FileNotFoundException e){
+		      System.out.println("File not found");
+		    }
+	}
 	
 }

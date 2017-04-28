@@ -22,6 +22,16 @@ public class LocationDescription {
 		this.asteroidShower = asteroidShower;
 		this.lightSaber = lightSaber;
 	}
+	
+	public void setDescription(String alien, String resources,String gravityBomb, String wormHoleKey,String asteroidShower, String peaceOffering, String lightSaber) {
+		this.wormHoleKey = wormHoleKey;
+		this.gravityBomb = gravityBomb;
+		this.peaceOffering = peaceOffering;
+		this.alien = alien;
+		this.resources = resources;
+		this.asteroidShower = asteroidShower;
+		this.lightSaber = lightSaber;
+	}
 
 	public String getPlanetName() {
 		return planetName;
@@ -72,7 +82,7 @@ public class LocationDescription {
 	}
 	
 	public String toString(){
-		return "_" + this.planetName+"\n"+this.alien.toString()+"\n"+this.getResources()+"\n"+this.getGravityBomb()+"\n"+this.getWormHoleKey()+"\n"+this.getAsteroidShower()+"\n"+this.getPeaceOffering()+"\n"+this.getLightSaber()+"\n";
+		return "_"+"\n" + this.planetName+"\n"+this.alien.toString()+"\n"+this.getResources()+"\n"+this.getGravityBomb()+"\n"+this.getWormHoleKey()+"\n"+this.getAsteroidShower()+"\n"+this.getPeaceOffering()+"\n"+this.getLightSaber()+"\n";
 	}
 
 	public String getAsteroidShower() {
