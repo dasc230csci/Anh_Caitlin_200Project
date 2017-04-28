@@ -22,11 +22,12 @@ public class GameLayout {
 		this.connection = new HashMap<String, Set<String>>();
 		this.descriptions = new HashMap<String, LocationDescription>();
 	}
-	public GameLayout(String fileName1, String fileName2){
+	public GameLayout(String fileName1, String fileName2) throws FileNotFoundException{
 		this.connection = new HashMap<String, Set<String>>();
 		this.descriptions = new HashMap<String, LocationDescription>();
 		this.planets= new PlanetsDescription();
 		planets.begin();
+		File file2 = planets.writeFile(fileName2);
 	    try{
 	      File newFile1 = new File(fileName1);
 	      Scanner scanner1 = new Scanner(newFile1);
@@ -49,12 +50,24 @@ public class GameLayout {
 	      File newFile2 = new File(fileName2);
 	      Scanner scanner3 = new Scanner(newFile2);
 	      while (scanner3.hasNextLine()){
-	    	  String planetName = scanner3.nextLine();
-	    	  descriptions.put(planetName, planets.getPlanet(planetName));
+	    	  String firstToken = scanner3.nextLine();
+	    	  if(firstToken.equals("_")){
+	    		  String name = scanner3.nextLine();
+	    		  String alien = scanner3.nextLine();
+	    		  String resources = scanner3.nextLine();
+	    		  String gBomb = scanner3.nextLine();
+	    		  String key = scanner3.nextLine();
+	    		  String asteroid = scanner3.nextLine();
+	    		  String offering = scanner3.nextLine();
+	    		  String yodaGive = scanner3.nextLine();
+	    	  }
 	      }
+	      scanner3.close();
 	}
 	    catch(FileNotFoundException e){
 	        System.out.println("File not found");
 	      }     
 	}
+	
+	
 }

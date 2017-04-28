@@ -1,9 +1,13 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Random;
 
 public class PlanetsDescription {
 	private LocationDescription earth, pluto, cybertron, dagobah, eternia, wormhole, forgottenRealm, blackHole, gallifrey, hyrule, middleEarth, iathilles, krypton;
 	private Random random;
 	private LocationDescription[] planets;
+	private PrintWriter writer;
 	
 	public PlanetsDescription(){
 		planets = new LocationDescription[13];
@@ -376,14 +380,24 @@ public class PlanetsDescription {
 			}
 		}
 	}
-	
 	public LocationDescription getPlanet(String planetName){
 		for(LocationDescription planet:planets){
+			
 			if (planet.getPlanetName().equals(planetName)){
 				return planet;
 			}
 		}
 		return null;
+	}
+	
+	public File writeFile(String fileName) throws FileNotFoundException{
+		File file = new File(fileName);
+		writer = new PrintWriter(file);
+		for(LocationDescription planet:planets){
+			writer.write(planet.toString());
+		}
+		writer.close();
+		return file;
 	}
 	
 	public void begin(){
