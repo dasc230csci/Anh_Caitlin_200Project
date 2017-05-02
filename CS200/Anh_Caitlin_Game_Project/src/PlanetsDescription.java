@@ -187,9 +187,7 @@ public class PlanetsDescription {
 			asteroid = "No Asteroid";
 		}
 		hyrule = new LocationDescription("Hyrule(H)","No Alien", resources+"", "Gravity Bomb", "No Wormhole Key", asteroid, "Peace Offering","No Light Saber");
-
 		planets[8]=this.hyrule;
-
 		return hyrule;
 
 	}
