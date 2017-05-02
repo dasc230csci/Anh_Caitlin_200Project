@@ -6,7 +6,11 @@ import javax.swing.JOptionPane;
 public class GameDriver {
 private GameLayout game;
 private LocationDescription currentPlanet;
+
+private GUILayout gui = new GUILayout();
+
 public void init() throws FileNotFoundException{
+	gui.setVisible(true);
 	game = new GameLayout("Planet Connection","PlanetDescription");
 	
 	System.out.println("------------------List the description of a location------------------");
