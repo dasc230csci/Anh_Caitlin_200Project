@@ -72,7 +72,7 @@ public class PlanetsDescription {
 	 * @return LocationDescription for krypton
 	 */
 	public LocationDescription createKrypton(){
-		krypton = new LocationDescription("Krypton(K)", "No Alien", "No Resources", "No Gravity Bomb", "No Wormhole Key", "No Asteroid Shower", "No Peace Offering", "No Light Saber");
+		krypton = new LocationDescription("Krypton(J)", "No Alien", "No Resources", "No Gravity Bomb", "No Wormhole Key", "No Asteroid Shower", "No Peace Offering", "No Light Saber");
 
 		planets[10]=this.krypton;
 

@@ -34,7 +34,7 @@ public class LocationDescription {
 	}
 
 	public String getPlanetName() {
-		return planetName;
+		return this.planetName;
 	}
 
 	public void setPlanetName(String planetName) {
