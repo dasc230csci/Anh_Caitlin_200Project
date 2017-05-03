@@ -46,10 +46,10 @@ public class GameLayout {
 		this.planets= new PlanetsDescription();
 		this.random = new Random();
 		this.riddleMaster = new String[15];
-		this.riddleMaster[0]="Is an older one-hundred dollar bill worth more than a newer one?";
-		this.riddleMaster[1]="What building has the most stories?";
+		this.riddleMaster[0]="Is an older one-hundred dollar bill worth more than a newer one?(Answer 'Y' or 'N')";
+		this.riddleMaster[1]="What building has the most stories?(Answer in the format: the [insert name of the building with no uppercase letter])";
 		this.riddleMaster[2]="Railroad crossing without any cars. Can you spell that without any R's?(Please spell in the form of C-A-T. Thank you)";
-		this.riddleMaster[3]="How many apples grow on a tree?";
+		this.riddleMaster[3]="How many apples grow on a tree?(your answer should not include uppercase letter)";
 		this.riddleMaster[4]="A truck driver is going opposite traffic on a one-way street. A police officer sees him but doesn't stop him.Why didn't the police officer stop him?";
 		this.riddleMaster[5]="A man was sitting on his couch and searching for the English Channel. How did he find it?";
 		this.riddleMaster[6]="Which is correct 'The yolk of the egg is white' or 'The egg yolk is white?'";
@@ -157,7 +157,7 @@ public class GameLayout {
 		    }
 	}
 	
-	public void explore(String planetName){
+	public boolean explore(String planetName){
 		this.resources += Integer.parseInt(this.descriptions.get(planetName).getResources());
 		if(this.descriptions.get(planetName).getAlien().equals("Good Alien")||this.descriptions.get(planetName).getAlien().equals("Yoda")|| this.descriptions.get(planetName).getAlien().equals("No Alien")){
 		
@@ -178,13 +178,16 @@ public class GameLayout {
 			this.descriptions.get(planetName).setLightSaber(this.clueMaster[clueRandom]);
 			this.clue = clueMaster[clueRandom];
 			this.clueNumber ++;
+			return false;
 		}
 		}
 		else if(this.descriptions.get(planetName).getAlien().equals("Bad Alien")){
 			int riddleRandom = random.nextInt(15);
 			this.riddle=this.riddleMaster[riddleRandom];
 			this.descriptions.get(planetName).setLightSaber(this.riddleMaster[riddleRandom]);
+			return true;
 		}
+		return false;
 	}
 	public int getClueNumber(){
 		return this.clueNumber;
@@ -300,5 +303,54 @@ public class GameLayout {
 		if(planet!=null){
 			this.descriptions.put(planetName, planet);
 		}
+	}
+	
+	public boolean checkAnswer(String answer){
+		if(this.riddle.equals(riddleMaster[0])){
+			return answer.contains("Y");
+		}
+		else if(this.riddle.equals(riddleMaster[1])){
+			return answer.contains("library");
+		}
+		else if(this.riddle.equals(riddleMaster[2])){
+			return answer.contains("T-H-A-T");
+		}
+		else if(this.riddle.equals(riddleMaster[3])){
+			return answer.contains("all")||answer.contains("every");
+		}
+		else if(this.riddle.equals(riddleMaster[4])){
+			return answer.contains("walk");
+		}
+		else if(this.riddle.equals(riddleMaster[5])){
+			return answer.contains("map");
+		}
+		else if(this.riddle.equals(riddleMaster[6])){
+			return answer.contains("none")||answer.contains("neither");
+		}
+		else if(this.riddle.equals(riddleMaster[7])){
+			return answer.contains("brain");
+		}
+		else if(this.riddle.equals(riddleMaster[8])){
+			return answer.contains("extinct");
+		}
+		else if(this.riddle.equals(riddleMaster[9])){
+			return answer.contains("mushroom");
+		}
+		else if(this.riddle.equals(riddleMaster[10])){
+			return answer.contains("buns");
+		}
+		else if(this.riddle.equals(riddleMaster[11])){
+			return answer.contains("better");
+		}
+		else if(this.riddle.equals(riddleMaster[12])){
+			return answer.contains("salad dressing");
+		}
+		else if(this.riddle.equals(riddleMaster[13])){
+			return answer.contains("Y")||answer.contains("y");
+		}
+		else if(this.riddle.equals(riddleMaster[14])){
+			return answer.contains("all")||answer.contains("every");
+		}
+		return false;	
 	}
 }

@@ -34,6 +34,17 @@ public void init() throws FileNotFoundException{
 	String nextPlanet = JOptionPane.showInputDialog("Where do you want to go next: ");
 	currentPlanet = game.getDescription(nextPlanet);
 	System.out.println(currentPlanet.toString());
+	if(game.explore(nextPlanet)){
+		String answer = JOptionPane.showInputDialog("Answer this to pass: "+ game.getRiddle());	
+		System.out.println(game.checkAnswer(answer));
+	}
+	System.out.println(game.getDescription("Middle Earth(M)"));
+	boolean test = game.explore("Middle Earth(M)");
+	System.out.println(test);
+	if(test){
+		String answer = JOptionPane.showInputDialog("Answer this to pass: "+ game.getRiddle());	
+		System.out.println(game.checkAnswer(answer));
+	}
 }
 public static void main(String [] args) throws FileNotFoundException
 {
