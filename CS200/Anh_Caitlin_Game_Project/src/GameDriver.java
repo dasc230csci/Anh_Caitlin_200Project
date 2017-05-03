@@ -1,6 +1,5 @@
 import java.io.FileNotFoundException;
 import java.util.Iterator;
-
 import javax.swing.JOptionPane;
 
 public class GameDriver {
