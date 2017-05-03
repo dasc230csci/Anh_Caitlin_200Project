@@ -10,7 +10,7 @@ private GUILayout gui = new GUILayout();
 
 public void init() throws FileNotFoundException{
 	gui.setVisible(true);
-	game = new GameLayout("Planet Connection","PlanetDescription");
+	game = new GameLayout("Planet Connection","Planet Description");
 	
 	System.out.println("------------------List the description of a location------------------");
 	currentPlanet = game.getDescription("Earth(A)");
