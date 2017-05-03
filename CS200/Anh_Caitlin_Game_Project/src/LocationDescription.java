@@ -96,4 +96,9 @@ public class LocationDescription {
 	public String getLightSaber() {
 		return this.lightSaber;
 	}
+
+	public void setLightSaber(String string) {
+		this.lightSaber = string;
+		
+	}
 }
