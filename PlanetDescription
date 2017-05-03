@@ -1,7 +1,7 @@
 _
 Earth(A)
 No Alien
-239
+98
 No Gravity Bomb
 No Wormhole Key
 No Asteroid Shower
@@ -10,25 +10,25 @@ No Light Saber
 _
 Pluto(B)
 No Alien
-208
+205
 Gravity Bomb
 No Wormhole Key
-No Asteroid
+Asteroid
 No Peace Offering
 No Light Saber
 _
 Cybertron(C)
-Bad Alien
-96
+Yoda
+134
 No Gravity Bomb
 Wormhole Key
 No Asteroid
 No Peace Offering
-Riddle
+Light Saber
 _
 Dagobah(D)
 No Alien
-123
+181
 Gravity Bomb
 No Wormhole Key
 Asteroid Shower
@@ -36,13 +36,13 @@ No Peace Offering
 No Light Saber
 _
 Eternia(E)
-Bad Alien
-96
-Gravity Bomb
+Good Alien
+159
+No Gravity Bomb
 Wormhole Key
 No Asteroid
 No Peace Offering
-Riddle
+No Light Saber
 _
 BlackHole(K)
 No Alien
@@ -55,16 +55,16 @@ No Light Saber
 _
 Forgotten Realm(F)
 Bad Alien
-145
-Gravity Bomb
+208
+No Gravity Bomb
 Wormhole Key
-Asteroid
+No Asteroid
 No Peace Offering
 Riddle
 _
 Gallifrey(G)
 No Alien
-37
+166
 No Gravity Bomb
 No Wormhole Key
 Asteroid Shower
@@ -73,10 +73,10 @@ No Light Saber
 _
 Hyrule(H)
 No Alien
-217
+120
 Gravity Bomb
 No Wormhole Key
-No Asteroid
+Asteroid
 Peace Offering
 No Light Saber
 _
@@ -100,7 +100,7 @@ No Light Saber
 _
 Middle Earth(M)
 Bad Alien
-186
+78
 No Gravity Bomb
 Wormhole Key
 No Asteroid
