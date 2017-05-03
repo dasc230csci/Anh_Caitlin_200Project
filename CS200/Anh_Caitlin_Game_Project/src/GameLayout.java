@@ -102,8 +102,7 @@ public class GameLayout {
 	      }
 	      scanner1.close();
 	      scanner2.close();
-	      File newFile2 = new File(fileName2);
-	      Scanner scanner3 = new Scanner(newFile2);
+	      Scanner scanner3 = new Scanner(file2);
 	      while (scanner3.hasNextLine()){
 	    	  String firstToken = scanner3.nextLine();
 	    	  if(firstToken.equals("_")){
@@ -255,9 +254,9 @@ public class GameLayout {
 		return this.gBomb;
 	}
 	
-	public int useKey(){
+	public Iterator<String> useKey(){
 		this.key--;
-		return this.key;
+		return this.connections("Wormhole(L)");
 	}
 	
 	public int useOffering(){
