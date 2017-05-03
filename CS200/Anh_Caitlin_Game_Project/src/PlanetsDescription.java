@@ -517,7 +517,6 @@ public class PlanetsDescription {
 		File file = new File(fileName);
 		writer = new PrintWriter(file);
 		for(LocationDescription planet:planets){
-			System.out.println(planet.toString()+1);
 			writer.write(planet.toString());
 		}
 		writer.close();

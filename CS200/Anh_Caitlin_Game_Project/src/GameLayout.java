@@ -102,8 +102,7 @@ public class GameLayout {
 	      }
 	      scanner1.close();
 	      scanner2.close();
-	      File newFile2 = new File(fileName2);
-	      Scanner scanner3 = new Scanner(newFile2);
+	      Scanner scanner3 = new Scanner(file2);
 	      while (scanner3.hasNextLine()){
 	    	  String firstToken = scanner3.nextLine();
 	    	  if(firstToken.equals("_")){
@@ -159,8 +158,9 @@ public class GameLayout {
 	}
 	
 	public void explore(String planetName){
-		if(this.descriptions.get(planetName).getAlien().equals("Good Alien")||this.descriptions.get(planetName).getAlien().equals("Yoda") ){
 		this.resources += Integer.parseInt(this.descriptions.get(planetName).getResources());
+		if(this.descriptions.get(planetName).getAlien().equals("Good Alien")||this.descriptions.get(planetName).getAlien().equals("Yoda")|| this.descriptions.get(planetName).getAlien().equals("No Alien")){
+		
 		if(this.descriptions.get(planetName).getGravityBomb().equals("Gravity Bomb")){
 		this.gBomb ++;
 		}
@@ -174,12 +174,16 @@ public class GameLayout {
 			this.lightSaber ++;
 		}
 		else if(this.descriptions.get(planetName).getLightSaber().equals("clue")){
+			int clueRandom = random.nextInt(15);
+			this.descriptions.get(planetName).setLightSaber(this.clueMaster[clueRandom]);
+			this.clue = clueMaster[clueRandom];
 			this.clueNumber ++;
 		}
 		}
 		else if(this.descriptions.get(planetName).getAlien().equals("Bad Alien")){
-			this.resources += Integer.parseInt(this.descriptions.get(planetName).getResources());
-			this.riddle=this.descriptions.get(planetName).getLightSaber();
+			int riddleRandom = random.nextInt(15);
+			this.riddle=this.riddleMaster[riddleRandom];
+			this.descriptions.get(planetName).setLightSaber(this.riddleMaster[riddleRandom]);
 		}
 	}
 	public int getClueNumber(){
@@ -243,5 +247,58 @@ public class GameLayout {
 	
 	public void setClueNumber(int number){
 		this.clueNumber+=number;
+	}
+	
+	public int useGBomb(){
+		this.gBomb--;
+		return this.gBomb;
+	}
+	
+	public Iterator<String> useKey(){
+		this.key--;
+		return this.connections("Wormhole(L)");
+	}
+	
+	public int useOffering(){
+		this.offering--;
+		return this.offering;
+	}
+	
+	public void returnPlanet(String planetName){
+		LocationDescription planet=null;
+		switch(planetName){
+		case "Earth(A)":
+			planet = planets.createEarth();
+			break;
+		case "Pluto(B)":
+			planet= planets.createPluto();
+			break;
+		case "Cybertron(C)":
+			planet= planets.createCybertron();
+			break;
+		case "Dagobah(D)":
+			planet=planets.createDagobah();
+			break;
+		case "Eternia(E)":
+			planet= planets.createEternia();
+			break;
+		case "Forgotten Realm(F)":
+			planet= planets.createForgottenRealm();
+			break;
+		case "Gallifrey(G)":
+			planet= planets.createGallifrey();
+			break;
+		case "Hyrule(H)":
+			planet= planets.createHyrule();
+			break;
+		case "Middle Earth(M)":
+			planet= planets.createMiddleEarth();
+			break;
+		default:
+			break;
+		}
+		if(planet!=null){
+			this.descriptions.put(planetName, planet);
+		}
 	}
 }
