@@ -28,7 +28,7 @@ public class GameLayout {
 	private String[] clueMaster;
 	private Random random;
 	
-	public GameLayout(){
+	public GameLayout() throws FileNotFoundException {
 		this.connection = new HashMap<String, Set<String>>();
 		this.descriptions = new HashMap<String, LocationDescription>();
 	}
