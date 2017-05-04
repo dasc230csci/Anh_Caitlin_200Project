@@ -89,7 +89,7 @@ public class PlanetsDescription {
 		String type ="";
 		String give="";
 		String asteroid="";
-		int resources = random.nextInt(250);
+		int resources = random.nextInt(150)+100;
 		int alienType = random.nextInt(100);
 		if(alienType<=50){
 			type = "Good Alien";

@@ -28,7 +28,7 @@ public class GameLayout {
 	private String[] clueMaster;
 	private Random random;
 	
-	public GameLayout() throws FileNotFoundException {
+	public GameLayout(){
 		this.connection = new HashMap<String, Set<String>>();
 		this.descriptions = new HashMap<String, LocationDescription>();
 	}
@@ -158,7 +158,11 @@ public class GameLayout {
 	}
 	
 	public boolean explore(String planetName){
+		this.resources -=25;
 		this.resources += Integer.parseInt(this.descriptions.get(planetName).getResources());
+		if(this.descriptions.get(planetName).getAsteroidShower().equals("Asteroid Shower")){
+			this.resources-=75;
+		}
 		if(this.descriptions.get(planetName).getAlien().equals("Good Alien")||this.descriptions.get(planetName).getAlien().equals("Yoda")|| this.descriptions.get(planetName).getAlien().equals("No Alien")){
 		
 		if(this.descriptions.get(planetName).getGravityBomb().equals("Gravity Bomb")){
@@ -176,7 +180,7 @@ public class GameLayout {
 		else if(this.descriptions.get(planetName).getLightSaber().equals("clue")){
 			int clueRandom = random.nextInt(15);
 			this.descriptions.get(planetName).setLightSaber(this.clueMaster[clueRandom]);
-			this.clue = clueMaster[clueRandom];
+			this.clue = this.clue+ "\n" + clueMaster[clueRandom];
 			this.clueNumber ++;
 			return false;
 		}
@@ -188,6 +192,9 @@ public class GameLayout {
 			return true;
 		}
 		return false;
+	}
+	public int getLightSaber(){
+		return this.lightSaber;
 	}
 	public int getClueNumber(){
 		return this.clueNumber;
@@ -217,7 +224,7 @@ public class GameLayout {
 	}
 	
 	public String getClue(){
-		return this.clue+"\n";
+		return this.clue;
 	}
 	
 	public void setResources(int amount){
@@ -267,7 +274,7 @@ public class GameLayout {
 		return this.offering;
 	}
 	
-	public void returnPlanet(String planetName){
+	public int returnPlanet(String planetName){
 		LocationDescription planet=null;
 		switch(planetName){
 		case "Earth(A)":
@@ -302,7 +309,14 @@ public class GameLayout {
 		}
 		if(planet!=null){
 			this.descriptions.put(planetName, planet);
+			if(this.explore(planetName)){
+				return 0;
+			}
+			else if(this.explore(planetName)==false){
+				return -1;
+			}
 		}
+		return -2;
 	}
 	
 	public boolean checkAnswer(String answer){
@@ -351,7 +365,6 @@ public class GameLayout {
 		else if(this.riddle.equals(riddleMaster[14])){
 			return answer.contains("all")||answer.contains("every");
 		}
-
 		return false;	
 	}
 }

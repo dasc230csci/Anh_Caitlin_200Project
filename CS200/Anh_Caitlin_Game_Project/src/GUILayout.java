@@ -4,6 +4,10 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.util.Iterator;
+import java.util.Random;
+
+import javax.swing.JOptionPane;
 
 /**
  *GUILayout class to represent GUI (Made in NetBeans) 
@@ -20,6 +24,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
     						   lightsaberNUMLbl, peaceOfferingNUMLbl, wormHoleKeyNUMLbl, imageLbl ;
     private javax.swing.JLayeredPane jLayeredPane1;
     private GameLayout theGame;
+    private LocationDescription currentPlanet, nextPlanet, previousPlanet;
 
 	
 	//-------------------------------------------------CONSTRUCTOR-----------------------------------------------------------------------------------------
@@ -29,6 +34,9 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
     public GUILayout() {
     	 try{
          	this.theGame = new GameLayout("Planet Connection","Planet Description");
+         	this.currentPlanet = this.theGame.getDescription("Earth(A)");
+         	this.nextPlanet = this.theGame.getDescription("Pluto(B)");
+         	this.previousPlanet = this.theGame.getDescription("Earth(A)");
              }
     	 catch(FileNotFoundException e1){
     	 
@@ -63,6 +71,19 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         wormHoleBtn = new javax.swing.JButton();
         middleEarthBtn = new javax.swing.JButton();
         dagobahBtn = new javax.swing.JButton();
+        plutoBtn.setVisible(false);
+        cybertronBtn.setVisible(false);
+        eterniaBtn.setVisible(false);
+        forgottenRealmBtn.setVisible(false);
+        gallifreyBtn.setVisible(false);
+        hyruleBtn.setVisible(false);
+        iathillesBtn.setVisible(false);
+        kryptonBtn.setVisible(false);
+        blackHoleBtn.setVisible(false);
+        wormHoleBtn.setVisible(false);
+        middleEarthBtn.setVisible(false);
+        dagobahBtn.setVisible(false);
+        earthBtn.setVisible(false);
         imageLbl = new javax.swing.JLabel();
         returnBtn = new javax.swing.JButton();
         itemsLbl = new javax.swing.JLabel();
@@ -224,7 +245,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         returnBtn.setBackground(new java.awt.Color(0, 0, 0));
         returnBtn.setFont(new java.awt.Font("Impact", 0, 14)); // NOI18N
         returnBtn.setForeground(new java.awt.Color(0, 255, 0));
-        returnBtn.setText("<html>\n<center>Return</center><br>\n(-25 Resources)\n</html>\n");
+        returnBtn.setText("<html>\n<center>Start</center><br>\n\n</html>\n");
         returnBtn.setActionCommand("<html>\n<center>Return</center><br>\n(-25 Resources)\n</html>");
         returnBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
         returnBtn.addActionListener(this);
@@ -270,7 +291,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         instructionsBtn.setBackground(new java.awt.Color(0, 0, 0));
         instructionsBtn.setFont(new java.awt.Font("Impact", 0, 14)); // NOI18N
         instructionsBtn.setForeground(new java.awt.Color(0, 255, 0));
-        instructionsBtn.setText("<html>\n<center>\nMission <br>\nInstructions\n</center>\n</html>");
+        instructionsBtn.setText("<html>\n<center>\nContinue <br>\nMission\n</center>\n</html>");
         instructionsBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
         instructionsBtn.setPreferredSize(new java.awt.Dimension(93, 56));
         instructionsBtn.addActionListener(this);
@@ -278,7 +299,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         displayCluesBtn.setBackground(new java.awt.Color(0, 0, 0));
         displayCluesBtn.setFont(new java.awt.Font("Impact", 0, 14)); // NOI18N
         displayCluesBtn.setForeground(new java.awt.Color(0, 255, 0));
-        displayCluesBtn.setText("Display Clues");
+        displayCluesBtn.setText("Display Clues "+this.theGame.getClueNumber());
         displayCluesBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
         displayCluesBtn.addActionListener(this);
         
@@ -383,55 +404,894 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
       
       //---------------------------------function buttons---------
       if(source == returnBtn){
-    	  //do return button things
+    	  if(returnBtn.getText().equals("<html>\n<center>Start</center><br>\n\n</html>\n")){
+    		  earthBtn.setVisible(true);
+    		  returnBtn.setText("<html>\n<center>Return</center><br>\n(-25 Resources)\n</html>\n");
+    		  instructionsBtn.setText("<html>\n<center>\nOption<br>\nMenu\n</center>\n</html>");
+    	  }
+    	  else if(returnBtn.getText().equals("<html>\n<center>Return</center><br>\n(-25 Resources)\n</html>\n")){
+    	  int result = this.theGame.returnPlanet(previousPlanet.getPlanetName());
+    	  currentPlanet= previousPlanet;
+    	  previousPlanet = null;
+    	  if (result==0){
+    		  JOptionPane.showInputDialog("You encounter "+ currentPlanet.getAsteroidShower()+"\n");
+    		  Object[] options = {"Use Light Saber",
+                      "Use Gravity Bomb",
+                      "Answer Riddle"};
+    		  int userChoice = JOptionPane.showOptionDialog(null,"You meet a bad alien. What would you do?",
+    				  		  "You have to make a decision",
+    						  JOptionPane.YES_NO_CANCEL_OPTION,
+    						  JOptionPane.QUESTION_MESSAGE,
+    						  null,
+    						  options,
+    						  options[2]);
+    		  if(userChoice == JOptionPane.YES_OPTION){
+    			  if(theGame.getLightSaber()==0){
+    				  JOptionPane.showOptionDialog(null,"You are not a jedi yet, you don't have any light Saber",
+    				  		  "You have to make a decision",
+    						  JOptionPane.YES_NO_OPTION,
+    						  JOptionPane.QUESTION_MESSAGE,
+    						  null,
+    						  options,
+    						  options[2]);
+    			  }
+    			  else if(theGame.getLightSaber()!=0){
+    				  JOptionPane.showInputDialog("You sliced the alien like hot knife through butter");
+    			  }
+    		  }
+    		  else if(userChoice == JOptionPane.NO_OPTION){
+    			  if(theGame.getGBomb()==0){
+    				  JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any bomb",
+    				  		  "You have to make a decision",
+    						  JOptionPane.YES_NO_OPTION,
+    						  JOptionPane.QUESTION_MESSAGE,
+    						  null,
+    						  options,
+    						  options[2]);
+    			  }
+    			  else if(theGame.getGBomb()!=0){
+    				  JOptionPane.showInputDialog("The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
+    			  }
+    		  }
+    		  else if(userChoice == JOptionPane.CANCEL_OPTION){
+    		  String answer = JOptionPane.showInputDialog("Answer this to pass: "+ theGame.getRiddle());
+    		  	if(theGame.checkAnswer(answer)){
+    		  		JOptionPane.showMessageDialog(null, "You answer the riddle correct");
+    		  	}
+    		  	else if(theGame.checkAnswer(answer)==false){
+    		  		JOptionPane.showMessageDialog(null, "You know you could have google the answer");
+    		  		theGame.setResources(100);
+    		  	}
+    		  }
+    	  }
+    	  else if (result == -1){
+    		  JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+ ". You have succesfully explore the planet");
+    	  }
+    	  
+    	  else if(result == -2){
+    		  JOptionPane.showMessageDialog(null, "you cannot go back");
+    	  }
+    	  resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
+    	  gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
+    	  lightsaberNUMLbl.setText(Integer.toString(theGame.getYodaGift()));
+    	  peaceOfferingNUMLbl.setText(Integer.toString(theGame.getOffering()));
+    	  wormHoleKeyNUMLbl.setText(Integer.toString(theGame.getKey()));
+    	  }  
       }
       if (source == instructionsBtn){
-    	  //do instructions things
+    	  if(instructionsBtn.getText().equals("<html>\n<center>\nContinue <br>\nMission\n</center>\n</html>")){
+    		  try {
+				this.theGame = new GameLayout("Planet Connection","Saved Game");
+				resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
+		    	gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
+		    	lightsaberNUMLbl.setText(Integer.toString(theGame.getYodaGift()));
+		    	peaceOfferingNUMLbl.setText(Integer.toString(theGame.getOffering()));
+		    	wormHoleKeyNUMLbl.setText(Integer.toString(theGame.getKey()));
+				earthBtn.setVisible(true);
+				instructionsBtn.setText("<html>\n<center>\nOption<br>\nMenu\n</center>\n</html>");
+				earthBtn.setVisible(true);
+	    		returnBtn.setText("<html>\n<center>Return</center><br>\n(-25 Resources)\n</html>\n");
+			} catch (FileNotFoundException e) {
+				System.out.println("File not found");
+			}
+    	  }
+    	  else if(instructionsBtn.getText().equals("<html>\n<center>\nOption<br>\nMenu\n</center>\n</html>")){
+    		  Object[] options = {"Save Game",
+                      "View instruction", "Restart"};
+    		  int n = JOptionPane.showOptionDialog(null,
+    				  "You are currently at "+ currentPlanet +"What would you like to do ",
+    						  "Menu Option",
+    						  JOptionPane.YES_NO_CANCEL_OPTION,
+    						  JOptionPane.QUESTION_MESSAGE,
+    						  null,
+    						  options,
+    						  options[2]);
+    		  if(n == JOptionPane.YES_OPTION){
+    			  this.theGame.saveGame("Saved Game");
+    			  System.exit(0);
+    		  }
+    		  else if(n ==JOptionPane.NO_OPTION){
+    			  JOptionPane.showMessageDialog(null, "Travel planets and reach 1000 resources to win"
+							+"\n"+"Bad aliens give you riddle that you must answer to else you will lose resources. Good aliens give you cool stuffs."+"\n"+"Wormhole key is used to control the wormhole location, Gravity Bomb and Light saber is used to kill it"
+							+"Some places will kill you immediately when you explore"
+							+"You could only return once, you have to move in order to return again");
+    		  }
+    		  else if(n == JOptionPane.CANCEL_OPTION){
+    			  this.main(null);
+    		  }
+    	  }
       }
       if (source == displayCluesBtn){
-    	  //display the clues
+    	  JOptionPane.showMessageDialog(null, theGame.getClue());
       }
       
       //----------------------------planet buttons---------------
+      
+    //----------------------------earth buttons---------------
       if(source == earthBtn){
-    	  //do earth button things
-    	  //System.out.println("this is earth");
+    	  this.theGame.explore("Earth(A)");
+    	  resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
+    	  gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
+    	  lightsaberNUMLbl.setText(Integer.toString(theGame.getYodaGift()));
+    	  peaceOfferingNUMLbl.setText(Integer.toString(theGame.getOffering()));
+    	  wormHoleKeyNUMLbl.setText(Integer.toString(theGame.getKey()));
+    	  plutoBtn.setVisible(true);
+    	  
       }
+      
+    //----------------------------pluto buttons---------------
       if (source == plutoBtn){
-    	  //do pluto things
+    	Iterator<String> connections = theGame.connections(currentPlanet.getPlanetName());
+    	boolean check = false;
+    	while(connections.hasNext()){
+    		if (connections.next().equals("Pluto(B)")){
+    			check = true;
+    		}
+    	}
+    	if (check==false){
+    		JOptionPane.showMessageDialog(null, "this planet does not connect to your current planet");
+    	}
+    	else if(check){
+    	this.previousPlanet = this.currentPlanet;
+    	this.currentPlanet = theGame.getDescription("Pluto(B)");
+    	this.theGame.explore("Pluto(B)");
+    	JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+"\n");
+    	resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
+   	  	gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
+   	  	lightsaberNUMLbl.setText(Integer.toString(theGame.getYodaGift()));
+   	  	peaceOfferingNUMLbl.setText(Integer.toString(theGame.getOffering()));
+   	  	wormHoleKeyNUMLbl.setText(Integer.toString(theGame.getKey()));
+   	  	plutoBtn.setVisible(true);
+   	  	cybertronBtn.setVisible(true);
+   	  	dagobahBtn.setVisible(true);
+    	}
       }
+      
+    //----------------------------cybertron buttons---------------
       if (source == cybertronBtn) {
-    	  //do cybertron things
+    	Iterator<String> connections = theGame.connections(currentPlanet.getPlanetName());
+      	boolean check = false;
+      	while(connections.hasNext()){
+      		if (connections.next().equals("Cybertron(C)")){
+      			check = true;
+      		}
+      	}
+      	if (check==false){
+      		JOptionPane.showMessageDialog(null, "this planet does not connect to your current planet");
+      	}
+      	else if(check){
+      		this.previousPlanet = this.currentPlanet;
+        	this.currentPlanet = theGame.getDescription("Cybertron(C)");
+    	  boolean result = this.theGame.explore("Cybertron(C)");
+    	  if(result){
+    		  JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+"\n");
+    		  if(this.theGame.getOffering()!=0){
+    			  JOptionPane.showMessageDialog(null, "You meet a bad alien but since you have a peace offering, it let you through");
+    			  this.theGame.useOffering();
+    		  }
+    		  else{
+    		  Object[] options = {"Use Light Saber",
+                  "Use Gravity Bomb",
+                  "Answer Riddle"};
+		  int userChoice = JOptionPane.showOptionDialog(null,"You meet a bad alien. What would you do?",
+				  		  "You have to make a decision",
+						  JOptionPane.YES_NO_CANCEL_OPTION,
+						  JOptionPane.QUESTION_MESSAGE,
+						  null,
+						  options,
+						  options[2]);
+		  if(userChoice == JOptionPane.YES_OPTION){
+			  if(theGame.getLightSaber()==0){
+				  JOptionPane.showOptionDialog(null,"You are not a jedi yet, you don't have any light Saber",
+				  		  "You have to make a decision",
+						  JOptionPane.YES_NO_OPTION,
+						  JOptionPane.QUESTION_MESSAGE,
+						  null,
+						  options,
+						  options[2]);
+			  }
+			  else if(theGame.getLightSaber()!=0){
+				  JOptionPane.showInputDialog("You sliced the alien like hot knife through butter");
+			  }
+		  }
+		  else if(userChoice == JOptionPane.NO_OPTION){
+			  if(theGame.getGBomb()==0){
+				  JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any bomb",
+				  		  "You have to make a decision",
+						  JOptionPane.YES_NO_OPTION,
+						  JOptionPane.QUESTION_MESSAGE,
+						  null,
+						  options,
+						  options[2]);
+			  }
+			  else if(theGame.getGBomb()!=0){
+				  JOptionPane.showInputDialog("The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
+			  }
+		  }
+		  else if(userChoice == JOptionPane.CANCEL_OPTION){
+		  String answer = JOptionPane.showInputDialog("Answer this to pass: "+ theGame.getRiddle());
+		  	if(theGame.checkAnswer(answer)){
+		  		JOptionPane.showMessageDialog(null, "You answer the riddle correct");
+		  	}
+		  	else if(theGame.checkAnswer(answer)==false){
+		  		JOptionPane.showMessageDialog(null, "You know you could have google the answer");
+		  		theGame.setResources(100);
+		  	}
+		  }
+	  }	
+    	  }
+    	  else if(result==false){
+    		  JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+ ". You have succesfully explore the planet");
+    	  }
+      	resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
+   	  	gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
+   	  	lightsaberNUMLbl.setText(Integer.toString(theGame.getYodaGift()));
+   	  	peaceOfferingNUMLbl.setText(Integer.toString(theGame.getOffering()));
+   	  	wormHoleKeyNUMLbl.setText(Integer.toString(theGame.getKey()));
+   	  	plutoBtn.setVisible(true);
+        gallifreyBtn.setVisible(true);
+        hyruleBtn.setVisible(true);
+        eterniaBtn.setVisible(true);
+        dagobahBtn.setVisible(true);
+      	}
       }
+      
+    //----------------------------dagobah buttons---------------
       if (source == dagobahBtn) {
-    	  //do dagobah things
+    	  Iterator<String> connections = theGame.connections(currentPlanet.getPlanetName());
+        	boolean check = false;
+        	while(connections.hasNext()){
+        		if (connections.next().equals("Dagobah(D)")){
+        			check = true;
+        		}
+        	}
+        	if (check==false){
+        		JOptionPane.showMessageDialog(null, "this planet does not connect to your current planet");
+        	}
+        	else if(check){
+        		this.previousPlanet = this.currentPlanet;
+        		this.currentPlanet = theGame.getDescription("Dagobah(D)");
+        		boolean result = this.theGame.explore("Dagobah(D)");
+        		JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower() + " and "+currentPlanet.getAlien()+ 
+        										". You have succesfully explore the planet");
+        		eterniaBtn.setVisible(true);
+        	}
       }
+      
+    //----------------------------eternia buttons---------------
       if (source == eterniaBtn) {
-    	  //do eternia things
+    	  Iterator<String> connections = theGame.connections(currentPlanet.getPlanetName());
+      	boolean check = false;
+      	while(connections.hasNext()){
+      		if (connections.next().equals("Eternia(E)")){
+      			check = true;
+      		}
+      	}
+      	if (check==false){
+      		JOptionPane.showMessageDialog(null, "this planet does not connect to your current planet");
+      	}
+      	else if(check){
+      		this.previousPlanet = this.currentPlanet;
+      		this.currentPlanet = theGame.getDescription("Eternia(E)");
+      		boolean result = this.theGame.explore("Eternia(E)");
+      		if(result){
+      		  JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+"\n");
+      		if(this.theGame.getOffering()!=0){
+  			  JOptionPane.showMessageDialog(null, "You meet a bad alien but since you have a peace offering, it let you through");
+  			  this.theGame.useOffering();
+  		  }
+      		else{
+      		  Object[] options = {"Use Light Saber",
+                    "Use Gravity Bomb",
+                    "Answer Riddle"};
+  		  int userChoice = JOptionPane.showOptionDialog(null,"You meet a bad alien. What would you do?",
+  				  		  "You have to make a decision",
+  						  JOptionPane.YES_NO_CANCEL_OPTION,
+  						  JOptionPane.QUESTION_MESSAGE,
+  						  null,
+  						  options,
+  						  options[2]);
+  		  if(userChoice == JOptionPane.YES_OPTION){
+  			  if(theGame.getLightSaber()==0){
+  				  JOptionPane.showOptionDialog(null,"You are not a jedi yet, you don't have any light Saber",
+  				  		  "You have to make a decision",
+  						  JOptionPane.YES_NO_OPTION,
+  						  JOptionPane.QUESTION_MESSAGE,
+  						  null,
+  						  options,
+  						  options[2]);
+  			  }
+  			  else if(theGame.getLightSaber()!=0){
+  				  JOptionPane.showInputDialog("You sliced the alien like hot knife through butter");
+  			  }
+  		  }
+  		  else if(userChoice == JOptionPane.NO_OPTION){
+  			  if(theGame.getGBomb()==0){
+  				  JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any bomb",
+  				  		  "You have to make a decision",
+  						  JOptionPane.YES_NO_OPTION,
+  						  JOptionPane.QUESTION_MESSAGE,
+  						  null,
+  						  options,
+  						  options[2]);
+  			  }
+  			  else if(theGame.getGBomb()!=0){
+  				  JOptionPane.showInputDialog("The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
+  			  }
+  		  }
+  		  else if(userChoice == JOptionPane.CANCEL_OPTION){
+  		  String answer = JOptionPane.showInputDialog("Answer this to pass: "+ theGame.getRiddle());
+  		  	if(theGame.checkAnswer(answer)){
+  		  		JOptionPane.showMessageDialog(null, "You answer the riddle correct");
+  		  	}
+  		  	else if(theGame.checkAnswer(answer)==false){
+  		  		JOptionPane.showMessageDialog(null, "You know you could have google the answer");
+  		  		theGame.setResources(100);
+  		  	}
+  		  }
+  	  }	
+      		}
+      	  else if(result==false){
+      		  JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+  ". You have succesfully explore the planet");
+      	  }
+        	resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
+     	  	gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
+     	  	lightsaberNUMLbl.setText(Integer.toString(theGame.getYodaGift()));
+     	  	peaceOfferingNUMLbl.setText(Integer.toString(theGame.getOffering()));
+     	  	wormHoleKeyNUMLbl.setText(Integer.toString(theGame.getKey()));
+     	  	wormHoleBtn.setVisible(true);
+      	}
       }
+      
+    //----------------------------forgotten realm buttons---------------
       if (source == forgottenRealmBtn) {
-    	  //do forgotten realm things
+    	  Iterator<String> connections = theGame.connections(currentPlanet.getPlanetName());
+        	boolean check = false;
+        	while(connections.hasNext()){
+        		if (connections.next().equals("ForgottenRealm(F)")){
+        			check = true;
+        		}
+        	}
+        	if (check==false){
+        		JOptionPane.showMessageDialog(null, "this planet does not connect to your current planet");
+        	}
+        	else if(check){
+        		this.previousPlanet = this.currentPlanet;
+        		this.currentPlanet = theGame.getDescription("ForgottenRealm(F)");
+        		boolean result = this.theGame.explore("ForgottenRealm(F)");
+        		if(result){
+        		  JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+"\n");
+        		  if(this.theGame.getOffering()!=0){
+        			  JOptionPane.showMessageDialog(null, "You meet a bad alien but since you have a peace offering, it let you through");
+        			  this.theGame.useOffering();
+        		  }
+        		  else{
+        		  Object[] options = {"Use Light Saber",
+                      "Use Gravity Bomb",
+                      "Answer Riddle"};
+    		  int userChoice = JOptionPane.showOptionDialog(null,"You meet a bad alien. What would you do?",
+    				  		  "You have to make a decision",
+    						  JOptionPane.YES_NO_CANCEL_OPTION,
+    						  JOptionPane.QUESTION_MESSAGE,
+    						  null,
+    						  options,
+    						  options[2]);
+    		  if(userChoice == JOptionPane.YES_OPTION){
+    			  if(theGame.getLightSaber()==0){
+    				  JOptionPane.showOptionDialog(null,"You are not a jedi yet, you don't have any light Saber",
+    				  		  "You have to make a decision",
+    						  JOptionPane.YES_NO_OPTION,
+    						  JOptionPane.QUESTION_MESSAGE,
+    						  null,
+    						  options,
+    						  options[2]);
+    			  }
+    			  else if(theGame.getLightSaber()!=0){
+    				  JOptionPane.showInputDialog("You sliced the alien like hot knife through butter");
+    			  }
+    		  }
+    		  else if(userChoice == JOptionPane.NO_OPTION){
+    			  if(theGame.getGBomb()==0){
+    				  JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any bomb",
+    				  		  "You have to make a decision",
+    						  JOptionPane.YES_NO_OPTION,
+    						  JOptionPane.QUESTION_MESSAGE,
+    						  null,
+    						  options,
+    						  options[2]);
+    			  }
+    			  else if(theGame.getGBomb()!=0){
+    				  JOptionPane.showInputDialog("The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
+    			  }
+    		  }
+    		  else if(userChoice == JOptionPane.CANCEL_OPTION){
+    		  String answer = JOptionPane.showInputDialog("Answer this to pass: "+ theGame.getRiddle());
+    		  	if(theGame.checkAnswer(answer)){
+    		  		JOptionPane.showMessageDialog(null, "You answer the riddle correct");
+    		  	}
+    		  	else if(theGame.checkAnswer(answer)==false){
+    		  		JOptionPane.showMessageDialog(null, "You know you could have google the answer");
+    		  		theGame.setResources(100);
+    		  	}
+    		  }
+    	  }	
+        		}
+        	  else if(result==false){
+        		  JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+  ". You have succesfully explore the planet");
+        	  }
+          	resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
+       	  	gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
+       	  	lightsaberNUMLbl.setText(Integer.toString(theGame.getYodaGift()));
+       	  	peaceOfferingNUMLbl.setText(Integer.toString(theGame.getOffering()));
+       	  	wormHoleKeyNUMLbl.setText(Integer.toString(theGame.getKey()));
+       	  	blackHoleBtn.setVisible(true);
+        	}
       }
+      
+    //----------------------------gallifrey buttons---------------
       if (source == gallifreyBtn) {
-    	  //do gallifrey things
-      }      
+    	  Iterator<String> connections = theGame.connections(currentPlanet.getPlanetName());
+      	boolean check = false;
+      	while(connections.hasNext()){
+      		if (connections.next().equals("Gallifrey(G)")){
+      			check = true;
+      		}
+      	}
+      	if (check==false){
+      		JOptionPane.showMessageDialog(null, "this planet does not connect to your current planet");
+      	}
+      	else if(check){
+      		this.previousPlanet = this.currentPlanet;
+      		this.currentPlanet = theGame.getDescription("Gallifrey(G)");
+      		boolean result = this.theGame.explore("Gallifrey(G)");
+      		JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower() + " and "+currentPlanet.getAlien()+ 
+      										". You have succesfully explore the planet");
+      		forgottenRealmBtn.setVisible(true);
+      	}
+      }
+      
+    //----------------------------hyrule buttons---------------
       if (source == hyruleBtn) {
-    	  //do hyrule things
-      }
-      if (source == iathillesBtn) {
-    	  //do iathilles things
-      }
-      if (source == kryptonBtn) {
-    	  //do krypton things
+    	  Iterator<String> connections = theGame.connections(currentPlanet.getPlanetName());
+        	boolean check = false;
+        	while(connections.hasNext()){
+        		if (connections.next().equals("Hyrule(H)")){
+        			check = true;
+        		}
+        	}
+        	if (check==false){
+        		JOptionPane.showMessageDialog(null, "this planet does not connect to your current planet");
+        	}
+        	else if(check){
+        		this.previousPlanet = this.currentPlanet;
+        		this.currentPlanet = theGame.getDescription("Hyrule(H)");
+        		boolean result = this.theGame.explore("Hyrule(H)");
+        		JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+ 
+        										". You have succesfully explore the planet");
+        		
+        		iathillesBtn.setVisible(true);
+        		middleEarthBtn.setVisible(true);
+        	}
       }
       if (source == blackHoleBtn) {
-    	  //do blackhole things
+    	  Iterator<String> connections = theGame.connections(currentPlanet.getPlanetName());
+        	boolean check = false;
+        	while(connections.hasNext()){
+        		if (connections.next().equals("Blackhole(K)")){
+        			check = true;
+        		}
+        	}
+        	if (check==false){
+        		JOptionPane.showMessageDialog(null, "this planet does not connect to your current planet");
+        	}
+        	else if(check){
+        		Object[] options = {"Restart",
+                        "Quit"};
+      		  int userChoice = JOptionPane.showOptionDialog(null,"you flight straight into a black hole like a deer run into the car light. RIP",
+      				  		  "You have to make a decision",
+      						  JOptionPane.YES_NO_OPTION,
+      						  JOptionPane.QUESTION_MESSAGE,
+      						  null,
+      						  options,
+      						  options[0]);
+      		 if(userChoice == JOptionPane.YES_OPTION){
+      			 this.main(null);
+      		 }
+      		 else if(userChoice == JOptionPane.NO_OPTION){
+      			 System.exit(0);
+      		 }
+        	}
       }
+      
+    //----------------------------krypton buttons---------------
+      if (source == kryptonBtn) {
+    	  Iterator<String> connections = theGame.connections(currentPlanet.getPlanetName());
+      	boolean check = false;
+      	while(connections.hasNext()){
+      		if (connections.next().equals("Krypton(J)")){
+      			check = true;
+      		}
+      	}
+      	if (check==false){
+      		JOptionPane.showMessageDialog(null, "this planet does not connect to your current planet");
+      	}
+      	else if(check){
+      		iathillesBtn.setVisible(true);
+      		Object[] options = {"Restart",
+                      "Quit"};
+    		  int userChoice = JOptionPane.showOptionDialog(null,"You enter a merge galaxy, there is no way out, you are dead",
+    				  		  "You have to make a decision",
+    						  JOptionPane.YES_NO_OPTION,
+    						  JOptionPane.QUESTION_MESSAGE,
+    						  null,
+    						  options,
+    						  options[0]);
+    		 if(userChoice == JOptionPane.YES_OPTION){
+    			 this.main(null);
+    		 }
+    		 else if(userChoice == JOptionPane.NO_OPTION){
+    			 System.exit(0);
+    		 }
+      	}
+      }
+      
+    //----------------------------iathilles buttons---------------
+      if (source == iathillesBtn) {
+    	  Iterator<String> connections = theGame.connections(currentPlanet.getPlanetName());
+      	boolean check = false;
+      	while(connections.hasNext()){
+      		if (connections.next().equals("Iathilles(I)")){
+      			check = true;
+      		}
+      	}
+      	if (check==false){
+      		JOptionPane.showMessageDialog(null, "this planet does not connect to your current planet");
+      	}
+      	else if(check){
+      		kryptonBtn.setVisible(true);
+      		Object[] options = {"Restart",
+                      "Quit"};
+    		  int userChoice = JOptionPane.showOptionDialog(null,"You enter a merge galaxy, there is no way out, you are dead",
+    				  		  "You have to make a decision",
+    						  JOptionPane.YES_NO_OPTION,
+    						  JOptionPane.QUESTION_MESSAGE,
+    						  null,
+    						  options,
+    						  options[0]);
+    		 if(userChoice == JOptionPane.YES_OPTION){
+    			 this.main(null);
+    		 }
+    		 else if(userChoice == JOptionPane.NO_OPTION){
+    			 System.exit(0);
+    		 }
+      	}
+      }
+      
+    //----------------------------wormhole buttons---------------
       if (source == wormHoleBtn) {
-    	  //do wormhole things
+    	  Iterator<String> connections = theGame.connections(currentPlanet.getPlanetName());
+        	boolean check = false;
+        	while(connections.hasNext()){
+        		if (connections.next().equals("Wormhole(L)")){
+        			check = true;
+        		}
+        	}
+        	if (check==false){
+        		JOptionPane.showMessageDialog(null, "this planet does not connect to your current planet");
+        	}
+        	else if(check){
+        		this.previousPlanet = this.currentPlanet;
+          		this.currentPlanet = theGame.getDescription("Wormhole(L)");
+          		eterniaBtn.setVisible(true);
+          		plutoBtn.setVisible(true);
+          		kryptonBtn.setVisible(true);
+          		forgottenRealmBtn.setVisible(true);
+        		if(theGame.getKey()!=0){		
+        			JOptionPane.showMessageDialog(null, "You can choose to travel to Eternia, Pluto, Krypton(Highly Recommend) or Forgotten Realm");
+        		}
+        		else if(theGame.getKey()==0){
+        			Random random = new Random();
+        			int chances = random.nextInt(100);
+        			if(chances<=25){
+        				this.previousPlanet = this.currentPlanet;
+        	      		this.currentPlanet = theGame.getDescription("Eternia(E)");
+        	      		boolean result = this.theGame.explore("Eternia(E)");
+        	      		if(result){
+        	      		  JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+"\n");
+        	      		if(this.theGame.getOffering()!=0){
+        	    			  JOptionPane.showMessageDialog(null, "You meet a bad alien but since you have a peace offering, it let you through");
+        	    			  this.theGame.useOffering();
+        	    		  }
+        	      		else{
+        	      		  Object[] options = {"Use Light Saber",
+        	                    "Use Gravity Bomb",
+        	                    "Answer Riddle"};
+        	  		  int userChoice = JOptionPane.showOptionDialog(null,"You meet a bad alien. What would you do?",
+        	  				  		  "You have to make a decision",
+        	  						  JOptionPane.YES_NO_CANCEL_OPTION,
+        	  						  JOptionPane.QUESTION_MESSAGE,
+        	  						  null,
+        	  						  options,
+        	  						  options[2]);
+        	  		  if(userChoice == JOptionPane.YES_OPTION){
+        	  			  if(theGame.getLightSaber()==0){
+        	  				  JOptionPane.showOptionDialog(null,"You are not a jedi yet, you don't have any light Saber",
+        	  				  		  "You have to make a decision",
+        	  						  JOptionPane.YES_NO_OPTION,
+        	  						  JOptionPane.QUESTION_MESSAGE,
+        	  						  null,
+        	  						  options,
+        	  						  options[2]);
+        	  			  }
+        	  			  else if(theGame.getLightSaber()!=0){
+        	  				  JOptionPane.showInputDialog("You sliced the alien like hot knife through butter");
+        	  			  }
+        	  		  }
+        	  		  else if(userChoice == JOptionPane.NO_OPTION){
+        	  			  if(theGame.getGBomb()==0){
+        	  				  JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any bomb",
+        	  				  		  "You have to make a decision",
+        	  						  JOptionPane.YES_NO_OPTION,
+        	  						  JOptionPane.QUESTION_MESSAGE,
+        	  						  null,
+        	  						  options,
+        	  						  options[2]);
+        	  			  }
+        	  			  else if(theGame.getGBomb()!=0){
+        	  				  JOptionPane.showInputDialog("The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
+        	  			  }
+        	  		  }
+        	  		  else if(userChoice == JOptionPane.CANCEL_OPTION){
+        	  		  String answer = JOptionPane.showInputDialog("Answer this to pass: "+ theGame.getRiddle());
+        	  		  	if(theGame.checkAnswer(answer)){
+        	  		  		JOptionPane.showMessageDialog(null, "You answer the riddle correct");
+        	  		  	}
+        	  		  	else if(theGame.checkAnswer(answer)==false){
+        	  		  		JOptionPane.showMessageDialog(null, "You know you could have google the answer");
+        	  		  		theGame.setResources(100);
+        	  		  	}
+        	  		  }
+        	  	  }		
+        	      		}
+        	      	  else if(result==false){
+        	      		  JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+  ". You have succesfully explore the planet");
+        	      	  }
+        	        	resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
+        	     	  	gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
+        	     	  	lightsaberNUMLbl.setText(Integer.toString(theGame.getYodaGift()));
+        	     	  	peaceOfferingNUMLbl.setText(Integer.toString(theGame.getOffering()));
+        	     	  	wormHoleKeyNUMLbl.setText(Integer.toString(theGame.getKey()));
+        	     	  	wormHoleBtn.setVisible(true);
+        			}
+        			else if(chances<=50){
+        				iathillesBtn.setVisible(true);
+        				this.currentPlanet = theGame.getDescription("Krypton(J)");
+        				Object[] options = {"Restart",
+                        "Quit"};
+      		  int userChoice = JOptionPane.showOptionDialog(null,"You enter a merge galaxy, there is no way out, you are dead",
+      				  		  "You have to make a decision",
+      						  JOptionPane.YES_NO_OPTION,
+      						  JOptionPane.QUESTION_MESSAGE,
+      						  null,
+      						  options,
+      						  options[0]);
+      		 if(userChoice == JOptionPane.YES_OPTION){
+      			 this.main(null);
+      		 }
+      		 else if(userChoice == JOptionPane.NO_OPTION){
+      			 System.exit(0);
+      		 }
+            		}
+        			else if(chances<=75){
+        				this.previousPlanet = this.currentPlanet;
+                		this.currentPlanet = theGame.getDescription("Forgotten Realm(F)");
+                		boolean result = this.theGame.explore("Forgotten Realm(F)");
+                		if(result){
+                		  JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+"\n");
+                		  if(this.theGame.getOffering()!=0){
+                			  JOptionPane.showMessageDialog(null, "You meet a bad alien but since you have a peace offering, it let you through");
+                			  this.theGame.useOffering();
+                		  }
+                		  else{
+                		  Object[] options = {"Use Light Saber",
+                              "Use Gravity Bomb",
+                              "Answer Riddle"};
+            		  int userChoice = JOptionPane.showOptionDialog(null,"You meet a bad alien. What would you do?",
+            				  		  "You have to make a decision",
+            						  JOptionPane.YES_NO_CANCEL_OPTION,
+            						  JOptionPane.QUESTION_MESSAGE,
+            						  null,
+            						  options,
+            						  options[2]);
+            		  if(userChoice == JOptionPane.YES_OPTION){
+            			  if(theGame.getLightSaber()==0){
+            				  JOptionPane.showOptionDialog(null,"You are not a jedi yet, you don't have any light Saber",
+            				  		  "You have to make a decision",
+            						  JOptionPane.YES_NO_OPTION,
+            						  JOptionPane.QUESTION_MESSAGE,
+            						  null,
+            						  options,
+            						  options[2]);
+            			  }
+            			  else if(theGame.getLightSaber()!=0){
+            				  JOptionPane.showInputDialog("You sliced the alien like hot knife through butter");
+            			  }
+            		  }
+            		  else if(userChoice == JOptionPane.NO_OPTION){
+            			  if(theGame.getGBomb()==0){
+            				  JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any bomb",
+            				  		  "You have to make a decision",
+            						  JOptionPane.YES_NO_OPTION,
+            						  JOptionPane.QUESTION_MESSAGE,
+            						  null,
+            						  options,
+            						  options[2]);
+            			  }
+            			  else if(theGame.getGBomb()!=0){
+            				  JOptionPane.showInputDialog("The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
+            			  }
+            		  }
+            		  else if(userChoice == JOptionPane.CANCEL_OPTION){
+            		  String answer = JOptionPane.showInputDialog("Answer this to pass: "+ theGame.getRiddle());
+            		  	if(theGame.checkAnswer(answer)){
+            		  		JOptionPane.showMessageDialog(null, "You answer the riddle correct");
+            		  	}
+            		  	else if(theGame.checkAnswer(answer)==false){
+            		  		JOptionPane.showMessageDialog(null, "You know you could have google the answer");
+            		  		theGame.setResources(100);
+            		  	}
+            		  }
+            	  }
+                		}
+                	  else if(result==false){
+                		  JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+  ". You have succesfully explore the planet");
+                	  }
+                  	resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
+               	  	gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
+               	  	lightsaberNUMLbl.setText(Integer.toString(theGame.getYodaGift()));
+               	  	peaceOfferingNUMLbl.setText(Integer.toString(theGame.getOffering()));
+               	  	wormHoleKeyNUMLbl.setText(Integer.toString(theGame.getKey()));
+               	blackHoleBtn.setVisible(true);
+               	cybertronBtn.setVisible(true);
+        			}
+        			else if(chances<=100){
+        				this.previousPlanet = this.currentPlanet;
+        		    	this.currentPlanet = theGame.getDescription("Pluto(B)");
+        		    	this.theGame.explore("Pluto(B)");
+        		    	JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+"\n");
+        		    	resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
+        		   	  	gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
+        		   	  	lightsaberNUMLbl.setText(Integer.toString(theGame.getYodaGift()));
+        		   	  	peaceOfferingNUMLbl.setText(Integer.toString(theGame.getOffering()));
+        		   	  	wormHoleKeyNUMLbl.setText(Integer.toString(theGame.getKey()));
+        		   	  	plutoBtn.setVisible(true);
+        		   	  	cybertronBtn.setVisible(true);
+        		   	  	dagobahBtn.setVisible(true);
+        			}
+        		}
+        	}
       }
+      
+      //----------------------------middle earth buttons---------------
       if (source == middleEarthBtn) {
-    	  //do middleearth things
+    	  Iterator<String> connections = theGame.connections(currentPlanet.getPlanetName());
+      	boolean check = false;
+      	while(connections.hasNext()){
+      		if (connections.next().equals("Middle Earth(M)")){
+      			check = true;
+      		}
+      	}
+      	if (check==false){
+      		JOptionPane.showMessageDialog(null, "this planet does not connect to your current planet");
+      	}
+      	else if(check){
+      		this.previousPlanet = this.currentPlanet;
+      		this.currentPlanet = theGame.getDescription("Middle Earth(M)");
+      		boolean result = this.theGame.explore("Middle Earth(M)");
+      		if(result){
+      		  JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+"\n");
+      		if(this.theGame.getOffering()!=0){
+  			  JOptionPane.showMessageDialog(null, "You meet a bad alien but since you have a peace offering, it let you through");
+  			  this.theGame.useOffering();
+  		  }
+      		else{
+      		  Object[] options = {"Use Light Saber",
+                    "Use Gravity Bomb",
+                    "Answer Riddle"};
+  		  int userChoice = JOptionPane.showOptionDialog(null,"You meet a bad alien. What would you do?",
+  				  		  "You have to make a decision",
+  						  JOptionPane.YES_NO_CANCEL_OPTION,
+  						  JOptionPane.QUESTION_MESSAGE,
+  						  null,
+  						  options,
+  						  options[2]);
+  		  if(userChoice == JOptionPane.YES_OPTION){
+  			  if(theGame.getLightSaber()==0){
+  				  JOptionPane.showOptionDialog(null,"You are not a jedi yet, you don't have any light Saber",
+  				  		  "You have to make a decision",
+  						  JOptionPane.YES_NO_OPTION,
+  						  JOptionPane.QUESTION_MESSAGE,
+  						  null,
+  						  options,
+  						  options[2]);
+  			  }
+  			  else if(theGame.getLightSaber()!=0){
+  				  JOptionPane.showInputDialog("You sliced the alien like hot knife through butter");
+  			  }
+  		  }
+  		  else if(userChoice == JOptionPane.NO_OPTION){
+  			  if(theGame.getGBomb()==0){
+  				  JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any bomb",
+  				  		  "You have to make a decision",
+  						  JOptionPane.YES_NO_OPTION,
+  						  JOptionPane.QUESTION_MESSAGE,
+  						  null,
+  						  options,
+  						  options[2]);
+  			  }
+  			  else if(theGame.getGBomb()!=0){
+  				  JOptionPane.showInputDialog("The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
+  			  }
+  		  }
+  		  else if(userChoice == JOptionPane.CANCEL_OPTION){
+  		  String answer = JOptionPane.showInputDialog("Answer this to pass: "+ theGame.getRiddle());
+  		  	if(theGame.checkAnswer(answer)){
+  		  		JOptionPane.showMessageDialog(null, "You answer the riddle correct");
+  		  	}
+  		  	else if(theGame.checkAnswer(answer)==false){
+  		  		JOptionPane.showMessageDialog(null, "You know you could have google the answer");
+  		  		theGame.setResources(100);
+  		  	}
+  		  }
+  	  }	
+      		}
+      	  else if(result==false){
+      		  JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+  ". You have succesfully explore the planet");
+      	  }
+        	resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
+     	  	gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
+     	  	lightsaberNUMLbl.setText(Integer.toString(theGame.getYodaGift()));
+     	  	peaceOfferingNUMLbl.setText(Integer.toString(theGame.getOffering()));
+     	  	wormHoleKeyNUMLbl.setText(Integer.toString(theGame.getKey()));
+      	}
+      }
+      if(this.theGame.getResources()==1500){
+    	  Object[] options = {"Restart",
+                  "Quit"};
+    	  int n = JOptionPane.showOptionDialog(null,
+    			  "Congratulation, you win",
+    					  "Congrat",
+    					  JOptionPane.YES_NO_OPTION,
+    					  JOptionPane.QUESTION_MESSAGE,
+    					  null,
+    					  options,
+    					  options[0]);
+    	  if(n==JOptionPane.YES_OPTION){
+    		  this.main(null);
+    	  }
+    	  else if(n==JOptionPane.NO_OPTION){
+    		  System.exit(0);
+    	  }
       }
     } //end action performed
     
