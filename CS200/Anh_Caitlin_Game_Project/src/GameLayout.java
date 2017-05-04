@@ -351,6 +351,7 @@ public class GameLayout {
 		else if(this.riddle.equals(riddleMaster[14])){
 			return answer.contains("all")||answer.contains("every");
 		}
+
 		return false;	
 	}
 }
