@@ -6,10 +6,10 @@ public class GameDriver {
 private GameLayout game;
 private LocationDescription currentPlanet;
 
-private GUILayout gui = new GUILayout();
+//private GUILayout gui = new GUILayout();
 
 public void init() throws FileNotFoundException{
-	gui.setVisible(true);
+	//gui.setVisible(true);
 	game = new GameLayout("Planet Connection","Planet Description");
 	
 	System.out.println("------------------List the description of a location------------------");
@@ -25,7 +25,7 @@ public void init() throws FileNotFoundException{
 	
 	System.out.println("------------------List all the location connected to the location------------------");
 	System.out.println("Your options to move next are: "+"\n");
-	Iterator<String>connections = game.connections(currentName);
+	Iterator<String>connections = game.connections("Wormhole(L)");
 	while(connections.hasNext()){
 		System.out.println(connections.next());
 	}
