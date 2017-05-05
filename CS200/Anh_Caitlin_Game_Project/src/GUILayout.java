@@ -411,7 +411,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
       }
       else if(returnBtn.getText().equals("<html>\n<center>Return</center><br>\n(-25 Resources)\n</html>\n")){
         if (previousPlanet==null){
-          JOptionPane.showMessageDialog(null, "You could not travel back twice");
+          JOptionPane.showMessageDialog(null, "You cannot travel back twice, doing so could disrupt the current time continuum, and get you into loads of trouble!");
         }
         int result = this.theGame.returnPlanet(previousPlanet.getPlanetName());
         currentPlanet= previousPlanet;
@@ -421,7 +421,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
           Object[] options = {"Use Light Saber",
             "Use Gravity Bomb",
             "Answer Riddle"};
-          int userChoice = JOptionPane.showOptionDialog(null,"You meet a bad alien. What would you do?",
+          int userChoice = JOptionPane.showOptionDialog(null,"You meet an evil alien. What do you do?",
                                                         "You have to make a decision",
                                                         JOptionPane.YES_NO_CANCEL_OPTION,
                                                         JOptionPane.QUESTION_MESSAGE,
@@ -430,7 +430,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                                         options[2]);
           if(userChoice == JOptionPane.YES_OPTION){
             if(theGame.getLightSaber()==0){
-              JOptionPane.showOptionDialog(null,"You are not a jedi yet, you don't have any light Saber",
+              JOptionPane.showOptionDialog(null,"You are no jedi, you don't even have a light saber!",
                                            "You have to make a decision",
                                            JOptionPane.YES_NO_OPTION,
                                            JOptionPane.QUESTION_MESSAGE,
@@ -439,12 +439,12 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                            options[2]);
             }
             else if(theGame.getLightSaber()!=0){
-              JOptionPane.showInputDialog("You sliced the alien like hot knife through butter");
+              JOptionPane.showInputDialog("You sliced the alien like hot knife through butter with your light saber!");
             }
           }
           else if(userChoice == JOptionPane.NO_OPTION){
             if(theGame.getGBomb()==0){
-              JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any bomb",
+              JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any gravity bombs",
                                            "You have to make a decision",
                                            JOptionPane.YES_NO_OPTION,
                                            JOptionPane.QUESTION_MESSAGE,
@@ -453,26 +453,26 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                            options[2]);
             }
             else if(theGame.getGBomb()!=0){
-              JOptionPane.showInputDialog("The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
+              JOptionPane.showMessageDialog(null, "The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
             }
           }
           else if(userChoice == JOptionPane.CANCEL_OPTION){
-            String answer = JOptionPane.showInputDialog("Answer this to pass: "+ theGame.getRiddle());
+            String answer = JOptionPane.showInputDialog("Prove your intelligence, and perhaps I'll let you pass...: "+ theGame.getRiddle());
             if(theGame.checkAnswer(answer)){
-              JOptionPane.showMessageDialog(null, "You answer the riddle correct");
+              JOptionPane.showMessageDialog(null, "Incredible, that is correct! Clearly your kind values intelligence, so I shall let you pass, this time...");
             }
             else if(theGame.checkAnswer(answer)==false){
-              JOptionPane.showMessageDialog(null, "You know you could have google the answer");
+              JOptionPane.showMessageDialog(null, "Wrong answer! I knew you would never solve my riddle, I don't have the patience for the likes of you! >:(");
               theGame.setResources(100);
             }
           }
         }
         else if (result == -1){
-          JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+ ". You have succesfully explore the planet");
+          JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+ ". You have succesfully explored the planet.");
         }
         
         else if(result == -2){
-          JOptionPane.showMessageDialog(null, "you cannot go back");
+          JOptionPane.showMessageDialog(null, "Your engines stall, it seems you cannot travel back from here...");
         }
         resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
         gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
@@ -485,8 +485,8 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         Object[] options = {"Restart",
           "Quit"};
         int n = JOptionPane.showOptionDialog(null,
-                                             "Congratulation, you win",
-                                             "Congrat",
+                                             "Congratulations, you have collected enough resources, you win!",
+                                             "Congrats",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
                                              null,
@@ -535,9 +535,9 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         }
         else if(n ==JOptionPane.NO_OPTION){
           JOptionPane.showMessageDialog(null, "Travel planets and reach 1000 resources to win"
-                                          +"\n"+"Bad aliens give you riddle that you must answer to else you will lose resources. Good aliens give you cool stuffs."+"\n"+"Wormhole key is used to control the wormhole location, Gravity Bomb and Light saber is used to kill it"
-                                          +"Some places will kill you immediately when you explore"
-                                          +"You could only return once, you have to move in order to return again");
+                                          +"\n"+"Bad aliens may give you a riddle that you must answer, at the risk of losing precious resources. Good aliens give you gifts."+"\n"+"Wormhole key is used to control the wormhole location. "+"\n"+ " Gravity Bomb and Light saber is used to kill it"
+                                          +"\n"+"Some places are too dangerous and impossible for your ship to escape, travel with caution."
+                                          +"\n"+"You could only return once, you have to move in order to return again");
         }
         else if(n == JOptionPane.CANCEL_OPTION){
           this.main(null);
@@ -564,8 +564,8 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         Object[] options = {"Restart",
           "Quit"};
         int n = JOptionPane.showOptionDialog(null,
-                                             "Congratulation, you win",
-                                             "Congrat",
+                                             "Congratulations, you have collected enough resources, you win!",
+                                             "Congrats",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
                                              null,
@@ -611,8 +611,8 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         Object[] options = {"Restart",
           "Quit"};
         int n = JOptionPane.showOptionDialog(null,
-                                             "Congratulation, you win",
-                                             "Congrat",
+                                             "Congratulations, you have collected enough resources, you win!",
+                                             "Congrats",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
                                              null,
@@ -653,7 +653,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
             Object[] options = {"Use Light Saber",
               "Use Gravity Bomb",
               "Answer Riddle"};
-            int userChoice = JOptionPane.showOptionDialog(null,"You meet a bad alien. What would you do?",
+            int userChoice = JOptionPane.showOptionDialog(null,"You meet an evil alien. What do you do?",
                                                           "You have to make a decision",
                                                           JOptionPane.YES_NO_CANCEL_OPTION,
                                                           JOptionPane.QUESTION_MESSAGE,
@@ -662,7 +662,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                                           options[2]);
             if(userChoice == JOptionPane.YES_OPTION){
               if(theGame.getLightSaber()==0){
-                JOptionPane.showOptionDialog(null,"You are not a jedi yet, you don't have any light Saber",
+                JOptionPane.showOptionDialog(null,"You are no jedi, you don't even have a light saber!",
                                              "You have to make a decision",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
@@ -671,12 +671,12 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                              options[2]);
               }
               else if(theGame.getLightSaber()!=0){
-                JOptionPane.showInputDialog("You sliced the alien like hot knife through butter");
+                JOptionPane.showInputDialog("You sliced the alien like hot knife through butter with your light saber!");
               }
             }
             else if(userChoice == JOptionPane.NO_OPTION){
               if(theGame.getGBomb()==0){
-                JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any bomb",
+                JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any gravity bombs",
                                              "You have to make a decision",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
@@ -685,23 +685,23 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                              options[2]);
               }
               else if(theGame.getGBomb()!=0){
-                JOptionPane.showInputDialog("The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
+                JOptionPane.showMessageDialog(null, "The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
               }
             }
             else if(userChoice == JOptionPane.CANCEL_OPTION){
-              String answer = JOptionPane.showInputDialog("Answer this to pass: "+ theGame.getRiddle());
+              String answer = JOptionPane.showInputDialog("Prove your intelligence, and perhaps I'll let you pass...: "+ theGame.getRiddle());
               if(theGame.checkAnswer(answer)){
-                JOptionPane.showMessageDialog(null, "You answer the riddle correct");
+                JOptionPane.showMessageDialog(null, "Incredible, that is correct! Clearly your kind values intelligence, so I shall let you pass, this time...");
               }
               else if(theGame.checkAnswer(answer)==false){
-                JOptionPane.showMessageDialog(null, "You know you could have google the answer");
+                JOptionPane.showMessageDialog(null, "Wrong answer! I knew you would never solve my riddle, I don't have the patience for the likes of you! >:(");
                 theGame.setResources(100);
               }
             }
           } 
         }
         else if(result==false){
-          JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+ ". You have succesfully explore the planet");
+          JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+ ". You have succesfully explored the planet");
         }
         resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
         gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
@@ -719,8 +719,8 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         Object[] options = {"Restart",
           "Quit"};
         int n = JOptionPane.showOptionDialog(null,
-                                             "Congratulation, you win",
-                                             "Congrat",
+                                             "Congratulations, you have collected enough resources, you win!",
+                                             "Congrats",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
                                              null,
@@ -752,15 +752,15 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         this.currentPlanet = theGame.getDescription("Dagobah(D)");
         boolean result = this.theGame.explore("Dagobah(D)");
         JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower() + " and "+currentPlanet.getAlien()+ 
-                                      ". You have succesfully explore the planet");
+                                      ". You have succesfully explored the planet");
         eterniaBtn.setVisible(true);
       }
       if(this.theGame.getResources()>=1500){
         Object[] options = {"Restart",
           "Quit"};
         int n = JOptionPane.showOptionDialog(null,
-                                             "Congratulation, you win",
-                                             "Congrat",
+                                             "Congratulations, you have collected enough resources, you win!",
+                                             "Congrats",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
                                              null,
@@ -801,7 +801,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
             Object[] options = {"Use Light Saber",
               "Use Gravity Bomb",
               "Answer Riddle"};
-            int userChoice = JOptionPane.showOptionDialog(null,"You meet a bad alien. What would you do?",
+            int userChoice = JOptionPane.showOptionDialog(null,"You meet an evil alien. What do you do?",
                                                           "You have to make a decision",
                                                           JOptionPane.YES_NO_CANCEL_OPTION,
                                                           JOptionPane.QUESTION_MESSAGE,
@@ -810,7 +810,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                                           options[2]);
             if(userChoice == JOptionPane.YES_OPTION){
               if(theGame.getLightSaber()==0){
-                JOptionPane.showOptionDialog(null,"You are not a jedi yet, you don't have any light Saber",
+                JOptionPane.showOptionDialog(null,"You are no jedi, you don't even have a light saber!",
                                              "You have to make a decision",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
@@ -819,12 +819,12 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                              options[2]);
               }
               else if(theGame.getLightSaber()!=0){
-                JOptionPane.showInputDialog("You sliced the alien like hot knife through butter");
+                JOptionPane.showInputDialog("You sliced the alien like hot knife through butter with your light saber!");
               }
             }
             else if(userChoice == JOptionPane.NO_OPTION){
               if(theGame.getGBomb()==0){
-                JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any bomb",
+                JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any gravity bombs",
                                              "You have to make a decision",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
@@ -833,23 +833,23 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                              options[2]);
               }
               else if(theGame.getGBomb()!=0){
-                JOptionPane.showInputDialog("The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
+                JOptionPane.showMessageDialog(null, "The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
               }
             }
             else if(userChoice == JOptionPane.CANCEL_OPTION){
-              String answer = JOptionPane.showInputDialog("Answer this to pass: "+ theGame.getRiddle());
+              String answer = JOptionPane.showInputDialog("Prove your intelligence, and perhaps I'll let you pass...: "+ theGame.getRiddle());
               if(theGame.checkAnswer(answer)){
-                JOptionPane.showMessageDialog(null, "You answer the riddle correct");
+                JOptionPane.showMessageDialog(null, "Incredible, that is correct! Clearly your kind values intelligence, so I shall let you pass, this time...");
               }
               else if(theGame.checkAnswer(answer)==false){
-                JOptionPane.showMessageDialog(null, "You know you could have google the answer");
+                JOptionPane.showMessageDialog(null, "Wrong answer! I knew you would never solve my riddle, I don't have the patience for the likes of you! >:(");
                 theGame.setResources(100);
               }
             }
           } 
         }
         else if(result==false){
-          JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+  ". You have succesfully explore the planet");
+          JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+  ". You have succesfully explored the planet");
         }
         resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
         gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
@@ -863,8 +863,8 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         Object[] options = {"Restart",
           "Quit"};
         int n = JOptionPane.showOptionDialog(null,
-                                             "Congratulation, you win",
-                                             "Congrat",
+                                             "Congratulations, you have collected enough resources, you win!",
+                                             "Congrats",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
                                              null,
@@ -905,7 +905,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
             Object[] options = {"Use Light Saber",
               "Use Gravity Bomb",
               "Answer Riddle"};
-            int userChoice = JOptionPane.showOptionDialog(null,"You meet a bad alien. What would you do?",
+            int userChoice = JOptionPane.showOptionDialog(null,"You meet an evil alien. What do you do?",
                                                           "You have to make a decision",
                                                           JOptionPane.YES_NO_CANCEL_OPTION,
                                                           JOptionPane.QUESTION_MESSAGE,
@@ -914,7 +914,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                                           options[2]);
             if(userChoice == JOptionPane.YES_OPTION){
               if(theGame.getLightSaber()==0){
-                JOptionPane.showOptionDialog(null,"You are not a jedi yet, you don't have any light Saber",
+                JOptionPane.showOptionDialog(null,"You are no jedi, you don't even have a light saber!",
                                              "You have to make a decision",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
@@ -923,12 +923,12 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                              options[2]);
               }
               else if(theGame.getLightSaber()!=0){
-                JOptionPane.showInputDialog("You sliced the alien like hot knife through butter");
+                JOptionPane.showInputDialog("You sliced the alien like hot knife through butter with your light saber!");
               }
             }
             else if(userChoice == JOptionPane.NO_OPTION){
               if(theGame.getGBomb()==0){
-                JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any bomb",
+                JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any gravity bombs",
                                              "You have to make a decision",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
@@ -937,23 +937,23 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                              options[2]);
               }
               else if(theGame.getGBomb()!=0){
-                JOptionPane.showInputDialog("The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
+                JOptionPane.showMessageDialog(null, "The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
               }
             }
             else if(userChoice == JOptionPane.CANCEL_OPTION){
-              String answer = JOptionPane.showInputDialog("Answer this to pass: "+ theGame.getRiddle());
+              String answer = JOptionPane.showInputDialog("Prove your intelligence, and perhaps I'll let you pass...: "+ theGame.getRiddle());
               if(theGame.checkAnswer(answer)){
-                JOptionPane.showMessageDialog(null, "You answer the riddle correct");
+                JOptionPane.showMessageDialog(null, "Incredible, that is correct! Clearly your kind values intelligence, so I shall let you pass, this time...");
               }
               else if(theGame.checkAnswer(answer)==false){
-                JOptionPane.showMessageDialog(null, "You know you could have google the answer");
+                JOptionPane.showMessageDialog(null, "Wrong answer! I knew you would never solve my riddle, I don't have the patience for the likes of you! >:(");
                 theGame.setResources(100);
               }
             }
           } 
         }
         else if(result==false){
-          JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+  ". You have succesfully explore the planet");
+          JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+  ". You have succesfully explored the planet");
         }
         resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
         gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
@@ -967,8 +967,8 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         Object[] options = {"Restart",
           "Quit"};
         int n = JOptionPane.showOptionDialog(null,
-                                             "Congratulation, you win",
-                                             "Congrat",
+                                             "Congratulations, you have collected enough resources, you win!",
+                                             "Congrats",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
                                              null,
@@ -1000,15 +1000,15 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         this.currentPlanet = theGame.getDescription("Gallifrey(G)");
         boolean result = this.theGame.explore("Gallifrey(G)");
         JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower() + " and "+currentPlanet.getAlien()+ 
-                                      ". You have succesfully explore the planet");
+                                      ". You have succesfully explored the planet");
         forgottenRealmBtn.setVisible(true);
       }
       if(this.theGame.getResources()>=1500){
         Object[] options = {"Restart",
           "Quit"};
         int n = JOptionPane.showOptionDialog(null,
-                                             "Congratulation, you win",
-                                             "Congrat",
+                                             "Congratulations, you have collected enough resources, you win!",
+                                             "Congrats",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
                                              null,
@@ -1040,7 +1040,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         this.currentPlanet = theGame.getDescription("Hyrule(H)");
         boolean result = this.theGame.explore("Hyrule(H)");
         JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+ 
-                                      ". You have succesfully explore the planet");
+                                      ". You have succesfully explored the planet");
         
         iathillesBtn.setVisible(true);
         middleEarthBtn.setVisible(true);
@@ -1060,8 +1060,8 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
       else if(check){
         Object[] options = {"Restart",
           "Quit"};
-        int userChoice = JOptionPane.showOptionDialog(null,"you flight straight into a black hole like a deer run into the car light. RIP",
-                                                      "You have to make a decision",
+        int userChoice = JOptionPane.showOptionDialog(null,"ERROR: A slight oversight causes you to miscalculate your trajectory, sending you straight into a black hole, there is no escape!",
+                                                      "GAME OVER",
                                                       JOptionPane.YES_NO_OPTION,
                                                       JOptionPane.QUESTION_MESSAGE,
                                                       null,
@@ -1092,8 +1092,8 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         iathillesBtn.setVisible(true);
         Object[] options = {"Restart",
           "Quit"};
-        int userChoice = JOptionPane.showOptionDialog(null,"You enter a merge galaxy, there is no way out, you are dead",
-                                                      "You have to make a decision",
+        int userChoice = JOptionPane.showOptionDialog(null,"ERROR: You have entered a merging galaxy, due to the extreme gravity pulling you in, there is no escape!",
+                                                      "GAME OVER",
                                                       JOptionPane.YES_NO_OPTION,
                                                       JOptionPane.QUESTION_MESSAGE,
                                                       null,
@@ -1124,7 +1124,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         kryptonBtn.setVisible(true);
         Object[] options = {"Restart",
           "Quit"};
-        int userChoice = JOptionPane.showOptionDialog(null,"You enter a merge galaxy, there is no way out, you are dead",
+        int userChoice = JOptionPane.showOptionDialog(null,"You enter a merger galaxy, there is no way out, you are dead",
                                                       "You have to make a decision",
                                                       JOptionPane.YES_NO_OPTION,
                                                       JOptionPane.QUESTION_MESSAGE,
@@ -1142,8 +1142,8 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         Object[] options = {"Restart",
           "Quit"};
         int n = JOptionPane.showOptionDialog(null,
-                                             "Congratulation, you win",
-                                             "Congrat",
+                                             "Congratulations, you have collected enough resources, you win!",
+                                             "Congrats",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
                                              null,
@@ -1178,7 +1178,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         kryptonBtn.setVisible(true);
         forgottenRealmBtn.setVisible(true);
         if(theGame.getKey()!=0){  
-          JOptionPane.showMessageDialog(null, "You can choose to travel to Eternia, Pluto, Krypton(Highly Recommend) or Forgotten Realm");
+          JOptionPane.showMessageDialog(null, "You can choose to travel to Eternia, Pluto, Krypton or Forgotten Realm with your wormhole key");
         }
         else if(theGame.getKey()==0){
           Random random = new Random();
@@ -1217,7 +1217,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                 Object[] options = {"Use Light Saber",
                   "Use Gravity Bomb",
                   "Answer Riddle"};
-                int userChoice = JOptionPane.showOptionDialog(null,"You meet a bad alien. What would you do?",
+                int userChoice = JOptionPane.showOptionDialog(null,"You meet an evil alien. What do you do?",
                                                               "You have to make a decision",
                                                               JOptionPane.YES_NO_CANCEL_OPTION,
                                                               JOptionPane.QUESTION_MESSAGE,
@@ -1226,7 +1226,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                                               options[2]);
                 if(userChoice == JOptionPane.YES_OPTION){
                   if(theGame.getLightSaber()==0){
-                    JOptionPane.showOptionDialog(null,"You are not a jedi yet, you don't have any light Saber",
+                    JOptionPane.showOptionDialog(null,"You are no jedi, you don't even have a light saber!",
                                                  "You have to make a decision",
                                                  JOptionPane.YES_NO_OPTION,
                                                  JOptionPane.QUESTION_MESSAGE,
@@ -1235,12 +1235,12 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                                  options[2]);
                   }
                   else if(theGame.getLightSaber()!=0){
-                    JOptionPane.showInputDialog("You sliced the alien like hot knife through butter");
+                    JOptionPane.showInputDialog("You sliced the alien like hot knife through butter with your light saber!");
                   }
                 }
                 else if(userChoice == JOptionPane.NO_OPTION){
                   if(theGame.getGBomb()==0){
-                    JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any bomb",
+                    JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any gravity bombs",
                                                  "You have to make a decision",
                                                  JOptionPane.YES_NO_OPTION,
                                                  JOptionPane.QUESTION_MESSAGE,
@@ -1249,23 +1249,23 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                                  options[2]);
                   }
                   else if(theGame.getGBomb()!=0){
-                    JOptionPane.showInputDialog("The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
+                    JOptionPane.showMessageDialog(null, "The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
                   }
                 }
                 else if(userChoice == JOptionPane.CANCEL_OPTION){
-                  String answer = JOptionPane.showInputDialog("Answer this to pass: "+ theGame.getRiddle());
+                  String answer = JOptionPane.showInputDialog("Prove your intelligence, and perhaps I'll let you pass...: "+ theGame.getRiddle());
                   if(theGame.checkAnswer(answer)){
-                    JOptionPane.showMessageDialog(null, "You answer the riddle correct");
+                    JOptionPane.showMessageDialog(null, "Incredible, that is correct! Clearly your kind values intelligence, so I shall let you pass, this time...");
                   }
                   else if(theGame.checkAnswer(answer)==false){
-                    JOptionPane.showMessageDialog(null, "You know you could have google the answer");
+                    JOptionPane.showMessageDialog(null, "Wrong answer! I knew you would never solve my riddle, I don't have the patience for the likes of you! >:(");
                     theGame.setResources(100);
                   }
                 }
               }
             }
             else if(result==false){
-              JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+  ". You have succesfully explore the planet");
+              JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+  ". You have succesfully explored the planet");
             }
             resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
             gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
@@ -1297,8 +1297,8 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         Object[] options = {"Restart",
           "Quit"};
         int n = JOptionPane.showOptionDialog(null,
-                                             "Congratulation, you win",
-                                             "Congrat",
+                                             "Congratulations, you have collected enough resources, you win!",
+                                             "Congrats",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
                                              null,
@@ -1339,7 +1339,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
             Object[] options = {"Use Light Saber",
               "Use Gravity Bomb",
               "Answer Riddle"};
-            int userChoice = JOptionPane.showOptionDialog(null,"You meet a bad alien. What would you do?",
+            int userChoice = JOptionPane.showOptionDialog(null,"You meet an evil alien. What do you do?",
                                                           "You have to make a decision",
                                                           JOptionPane.YES_NO_CANCEL_OPTION,
                                                           JOptionPane.QUESTION_MESSAGE,
@@ -1348,7 +1348,7 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                                           options[2]);
             if(userChoice == JOptionPane.YES_OPTION){
               if(theGame.getLightSaber()==0){
-                JOptionPane.showOptionDialog(null,"You are not a jedi yet, you don't have any light Saber",
+                JOptionPane.showOptionDialog(null,"You are no jedi, you don't even have a light saber!",
                                              "You have to make a decision",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
@@ -1357,12 +1357,12 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                              options[2]);
               }
               else if(theGame.getLightSaber()!=0){
-                JOptionPane.showInputDialog("You sliced the alien like hot knife through butter");
+                JOptionPane.showInputDialog("You sliced the alien like hot knife through butter with your light saber!");
               }
             }
             else if(userChoice == JOptionPane.NO_OPTION){
               if(theGame.getGBomb()==0){
-                JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any bomb",
+                JOptionPane.showOptionDialog(null,"Stop being a troll, you don't have any gravity bombs",
                                              "You have to make a decision",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
@@ -1371,23 +1371,23 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
                                              options[2]);
               }
               else if(theGame.getGBomb()!=0){
-                JOptionPane.showInputDialog("The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
+                JOptionPane.showMessageDialog(null, "The alien along with the alien's hope and dream explode in front of you. Alien's babies and wife(maybe?) will forever hate you");
               }
             }
             else if(userChoice == JOptionPane.CANCEL_OPTION){
-              String answer = JOptionPane.showInputDialog("Answer this to pass: "+ theGame.getRiddle());
+              String answer = JOptionPane.showInputDialog("Prove your intelligence, and perhaps I'll let you pass...: "+ theGame.getRiddle());
               if(theGame.checkAnswer(answer)){
-                JOptionPane.showMessageDialog(null, "You answer the riddle correct");
+                JOptionPane.showMessageDialog(null, "Incredible, that is correct! Clearly your kind values intelligence, so I shall let you pass, this time...");
               }
               else if(theGame.checkAnswer(answer)==false){
-                JOptionPane.showMessageDialog(null, "You know you could have google the answer");
+                JOptionPane.showMessageDialog(null, "Wrong answer! I knew you would never solve my riddle, I don't have the patience for the likes of you! >:(");
                 theGame.setResources(100);
               }
             }
           } 
         }
         else if(result==false){
-          JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+  ". You have succesfully explore the planet");
+          JOptionPane.showMessageDialog(null, "You encounter "+ currentPlanet.getAsteroidShower()+ " and "+currentPlanet.getAlien()+  ". You have succesfully explored the planet");
         }
         resourceNUMLbl.setText(Integer.toString(theGame.getResources()));
         gravityBombNUMLbl.setText(Integer.toString(theGame.getGBomb()));
@@ -1400,8 +1400,8 @@ public class GUILayout extends javax.swing.JFrame implements ActionListener{
         Object[] options = {"Restart",
           "Quit"};
         int n = JOptionPane.showOptionDialog(null,
-                                             "Congratulation, you win",
-                                             "Congrat",
+                                             "Congratulations, you have collected enough resources, you win!",
+                                             "Congrats",
                                              JOptionPane.YES_NO_OPTION,
                                              JOptionPane.QUESTION_MESSAGE,
                                              null,
